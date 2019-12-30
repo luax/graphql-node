@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "start": "nodemon index.js"
+    "start": "nodemon app/index.js"
   },
   "devDependencies": {
     "apollo-server-testing": "2.9.15",

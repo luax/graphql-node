@@ -1,18 +1,24 @@
 const { ApolloServer } = require("apollo-server");
-const { typeDefs, resolvers } = require("./graphql");
+const { typeDefs, resolvers, context } = require("./graphql");
 
-const createServer = ({ typeDefs, resolvers }) => {
+const createServer = ({ typeDefs, resolvers, context }) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    // dataSources,
-    // context,
+    context,
+    formatError: error => {
+      if (process.env.NODE_ENV !== "test") console.log("error", error);
+      return error;
+    },
+    formatResponse: response => {
+      return response;
+    },
   });
   return server;
 };
 
 const startServer = async () => {
-  const server = createServer({ typeDefs, resolvers });
+  const server = createServer({ typeDefs, resolvers, context });
   const httpServer = await server.listen({
     port: process.env.PORT,
   });

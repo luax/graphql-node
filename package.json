@@ -1,0 +1,57 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "",
+  "engines": {
+    "node": "12.14"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "apollo-server-testing": "2.9.15",
+    "axios": "0.19.0",
+    "eslint": "6.8.0",
+    "jest": "24.9.0",
+    "nodemon": "2.0.2",
+    "prettier": "1.19.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 10
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-unused-vars": [
+        "error",
+        {
+          "vars": "all",
+          "args": "all",
+          "ignoreRestSiblings": false,
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrors": "all",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "apollo-server": "2.9.15",
+    "dotenv": "8.2.0",
+    "graphql": "14.5.8"
+  },
+  "jest": {
+    "setupFiles": [
+      "./jest.setup.js"
+    ]
+  }
+}

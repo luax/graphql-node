@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`e2e gets a list of books 1`] = `
+Object {
+  "data": Object {
+    "books": Array [
+      Object {
+        "title": "Harry Potter and the Chamber of Secrets",
+      },
+      Object {
+        "title": "Jurassic Park",
+      },
+    ],
+  },
+}
+`;

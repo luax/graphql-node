@@ -1,15 +1,13 @@
 const { ApolloServer } = require("apollo-server");
 const { typeDefs, resolvers, context } = require("./graphql");
+const { formatError } = require("./graphql/errors");
 
 const createServer = ({ typeDefs, resolvers, context }) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context,
-    formatError: error => {
-      if (process.env.NODE_ENV !== "test") console.log("error", error);
-      return error;
-    },
+    formatError,
     formatResponse: response => {
       return response;
     },

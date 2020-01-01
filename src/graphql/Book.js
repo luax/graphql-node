@@ -6,7 +6,7 @@ const typeDefs = gql`
   type Book {
     id: ID!
     title: String
-    author: String
+    author: Author
   }
   extend type Query {
     books: [Book]
@@ -18,12 +18,12 @@ const books = [
   {
     id: 1,
     title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling",
+    authorId: "J.K. Rowling",
   },
   {
     id: 2,
     title: "Jurassic Park",
-    author: "Michael Crichton",
+    authorId: "Michael Crichton",
   },
 ];
 
@@ -31,7 +31,11 @@ const resolvers = {
   Query: {
     books: () => books,
     book: (_obj, { id }, context, _info) =>
-      context.loaders.book.getBooks.load(id),
+      context.loaders.books.getBooks.load(id),
+  },
+  Book: {
+    author: (book, _, context, _info) =>
+      context.loaders.authors.getById.load(book.author_id),
   },
 };
 
@@ -49,8 +53,17 @@ const loaders = _user => {
   };
 
   return {
-    book: {
+    books: {
       getBooks: new DataLoader(getBooks),
+      getByAuthorId: new DataLoader(async ids => {
+        const res = await client.query(
+          "SELECT id, title, author_id FROM books WHERE author_id IN ($1)",
+          ids,
+        );
+        return [
+          res, // TODO: Allow more to be returned?
+        ];
+      }),
     },
   };
 };

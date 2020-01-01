@@ -1,0 +1,19 @@
+#!/usr/bin/env node --experimental-repl-await
+
+const repl = require("repl");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const graphql = require("../src/graphql");
+const { client: postgres } = require("../src/postgres");
+
+console.log(`
+  usage:
+    > const res = await postgres.query("SELECT NOW() as now")
+    > console.log(res);
+    > .help
+`);
+
+const server = repl.start("> ");
+server.context.graphql = graphql;
+server.context.postgres = postgres;

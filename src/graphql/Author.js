@@ -16,12 +16,20 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    author: async (_, { id }, context, _info) =>
-      context.loaders.authors.getById.load(id),
+    author: async (_, { id }, { user, loaders }, _info) => {
+      const author = loaders.authors.getById.load(id);
+      if (!isAuthorized(user, author)) {
+        throw new AuthenticationError("not authenticated");
+      }
+      return author;
+    },
   },
   Author: {
-    books: async (author, _, context, _info) => {
-      const books = await context.loaders.books.getByAuthorId.load(author.id);
+    books: async (author, _, { user, loaders }, _info) => {
+      if (!isAuthorized(user, author)) {
+        throw new AuthenticationError("not authenticated");
+      }
+      const books = await loaders.books.getByAuthorId.load(author.id);
       return books;
     },
   },
@@ -34,7 +42,7 @@ const serializeAuthor = author => ({
 
 const isAuthorized = (user, _p) => user !== null;
 
-const loaders = user => ({
+const loaders = () => ({
   authors: {
     getById: new DataLoader(async ids => {
       const res = await client.query(
@@ -42,14 +50,9 @@ const loaders = user => ({
         ids,
       );
       const authors = res.map(p => serializeAuthor(p));
-      authors.forEach(author => {
-        if (!isAuthorized(user, author)) {
-          throw new AuthenticationError("not authenticated");
-        }
-      });
       return ids.map(id => authors.find(p => p.id == id));
     }),
   },
 });
 
-module.exports = { typeDefs, resolvers, loaders };
+module.exports = { typeDefs, resolvers, loaders, isAuthorized };

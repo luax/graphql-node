@@ -7,6 +7,4 @@ const getUser = req => {
   };
 };
 
-module.exports = {
-  getUser,
-};
+module.exports = getUser;

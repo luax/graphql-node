@@ -14,5 +14,5 @@ module.exports = {
     const duration = Date.now() - start;
     console.log("executed query", { query, duration, rows: res.rowCount });
     return res.rows;
-  }
+  },
 };

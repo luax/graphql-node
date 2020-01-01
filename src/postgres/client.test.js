@@ -6,6 +6,7 @@ test("returns now", async () => {
 });
 
 test("returns an error", async () => {
-  expect(client.query("SELECT NOW as now")).rejects.toThrowErrorMatchingSnapshot();
+  expect(
+    client.query("SELECT NOW as now"),
+  ).rejects.toThrowErrorMatchingSnapshot();
 });
-

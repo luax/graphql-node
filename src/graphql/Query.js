@@ -6,10 +6,9 @@ const typeDefs = gql`
   }
 `;
 
-
 const resolvers = {
   Query: {
-    date: () => Date.now()
+    date: () => Date.now(),
   },
 };
 

@@ -21,9 +21,7 @@ const resolvers = {
   },
   Author: {
     books: async (author, _, context, _info) => {
-      const books = await context.loaders.books.getByAuthorId.load(
-        author.id,
-      );
+      const books = await context.loaders.books.getByAuthorId.load(author.id);
       return books;
     },
   },

@@ -5,17 +5,9 @@ const Book = require("./Book");
 const User = require("./User");
 const Author = require("./Author");
 
-const typeDefs = [
-  Query.typeDefs,
-  Author.typeDefs,
-  Book.typeDefs,
-];
+const typeDefs = [Query.typeDefs, Author.typeDefs, Book.typeDefs];
 
-const resolvers = merge(
-  Query.resolvers,
-  Author.resolvers,
-  Book.resolvers,
-);
+const resolvers = merge(Query.resolvers, Author.resolvers, Book.resolvers);
 
 const context = async ({ req }) => {
   const user = User.getUser(req);

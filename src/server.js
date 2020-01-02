@@ -11,6 +11,7 @@ const createServer = ({ typeDefs, resolvers, context }) => {
     formatResponse: response => {
       return response;
     },
+    tracing: process.env.NODE_ENV === "development",
   });
   return server;
 };

@@ -16,6 +16,7 @@
     "apollo-server-testing": "2.9.15",
     "axios": "0.19.0",
     "eslint": "6.8.0",
+    "eslint-config-prettier": "6.9.0",
     "husky": "3.1.0",
     "jest": "24.9.0",
     "lint-staged": "9.5.0",
@@ -31,7 +32,10 @@
     "parserOptions": {
       "ecmaVersion": 10
     },
-    "extends": "eslint:recommended",
+    "extends": [
+      "eslint:all",
+      "prettier"
+    ],
     "rules": {
       "no-unused-vars": [
         "error",
@@ -44,7 +48,20 @@
           "caughtErrors": "all",
           "caughtErrorsIgnorePattern": "^_"
         }
-      ]
+      ],
+      "max-lines-per-function": "off",
+      "init-declarations": "off",
+      "no-process-env": "off",
+      "multiline-comment-style": "off",
+      "no-shadow": "off",
+      "one-var": "off",
+      "no-warning-comments": "off",
+      "id-length": "off",
+      "require-await": "off",
+      "no-console": "off",
+      "max-params": "off",
+      "sort-keys": "off",
+      "strict": "off"
     }
   },
   "dependencies": {

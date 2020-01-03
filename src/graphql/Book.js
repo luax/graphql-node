@@ -16,21 +16,32 @@ const typeDefs = gql`
   }
 `;
 
+const isAuthorized = user => user !== null;
+
+const serializeBook = record => ({
+  id: record.id.toString(),
+  title: record.title,
+  authorId: record.author_id.toString(),
+});
+
 const resolvers = {
   Query: {
-    books: async () =>
-      await client.query(
+    books: async () => {
+      const res = await client.query(
         "SELECT id, title, author_id FROM books ORDER BY id ASC",
-      ),
+      );
+      const books = res.map(r => serializeBook(r));
+      return books;
+    },
     book: (_obj, { id }, context, _info) =>
       context.loaders.books.getById.load(id),
   },
   Book: {
-    author: (book, _, { user, loaders, models }, _info) => {
+    author: (book, _args, { user, loaders, models }, _info) => {
       if (!isAuthorized(user)) {
         throw new AuthenticationError("buu");
       }
-      const author = loaders.authors.getById.load(book.author_id);
+      const author = loaders.authors.getById.load(book.authorId);
       if (!models.Author.isAuthorized(user)) {
         // TODO: Is this nice?
         throw new AuthenticationError("buu");
@@ -40,8 +51,6 @@ const resolvers = {
   },
 };
 
-const isAuthorized = user => user !== null;
-
 const loaders = () => ({
   books: {
     getById: new DataLoader(async ids => {
@@ -49,14 +58,16 @@ const loaders = () => ({
         "SELECT id, title, author_id FROM books WHERE id = ANY ($1) ORDER BY id ASC",
         [ids],
       );
-      return ids.map(id => res.find(b => b.id == id));
+      const books = res.map(r => serializeBook(r));
+      return ids.map(id => books.find(b => b.id === id));
     }),
     getByAuthorId: new DataLoader(async ids => {
-      const books = await client.query(
+      const res = await client.query(
         "SELECT id, title, author_id FROM books WHERE author_id = ANY ($1) ORDER BY id ASC",
         [ids],
       );
-      const booksByAuthor = groupBy(books, "author_id");
+      const books = res.map(r => serializeBook(r));
+      const booksByAuthor = groupBy(books, "authorId");
       return ids.map(authorId => booksByAuthor[authorId]);
     }),
   },

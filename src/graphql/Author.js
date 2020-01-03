@@ -14,6 +14,8 @@ const typeDefs = gql`
   }
 `;
 
+const isAuthorized = (user, _p) => user !== null;
+
 const resolvers = {
   Query: {
     author: async (_, { id }, { user, loaders }, _info) => {
@@ -35,7 +37,10 @@ const resolvers = {
   },
 };
 
-const isAuthorized = (user, _p) => user !== null;
+const serializeAuthor = record => ({
+  id: record.id.toString(),
+  name: record.name,
+});
 
 const loaders = () => ({
   authors: {
@@ -44,7 +49,8 @@ const loaders = () => ({
         `SELECT id, name FROM authors WHERE id = ANY ($1) ORDER BY id ASC`,
         [ids],
       );
-      return ids.map(id => res.find(p => p.id == id));
+      const authors = res.map(r => serializeAuthor(r));
+      return ids.map(id => authors.find(p => p.id === id));
     }),
   },
 });

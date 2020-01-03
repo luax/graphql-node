@@ -25,5 +25,5 @@ module.exports = {
       connectionTimeoutMillis: 2000,
     });
   },
-  end: async () => await pool.end(),
+  end: async () => pool.end(),
 };

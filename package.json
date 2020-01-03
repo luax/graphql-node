@@ -59,7 +59,17 @@
       "id-length": "off",
       "require-await": "off",
       "no-console": "off",
+      "no-magic-numbers": "off",
+      "no-ternary": "off",
+      "prefer-destructuring": [
+        "error",
+        {
+          "object": true,
+          "array": false
+        }
+      ],
       "max-params": "off",
+      "max-statements": "off",
       "sort-keys": "off",
       "strict": "off"
     }

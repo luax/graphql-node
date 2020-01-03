@@ -83,4 +83,58 @@ describe("e2e", () => {
     });
     expect(response.data).toMatchSnapshot();
   });
+
+  test("paginated list of books with last", async () => {
+    const response = await axios.post(`${httpServer.url}graphql`, {
+      query: `
+        {
+          author(id: 1) {
+            booksConnection(last: 2, after: "3", before: "10") {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+              }
+              edges {
+                node {
+                  id,
+                  title
+                }
+                cursor
+              }
+            }
+          }
+        }
+      `,
+    });
+    expect(response.data).toMatchSnapshot();
+  });
+
+  test("paginated list of books with first", async () => {
+    const response = await axios.post(`${httpServer.url}graphql`, {
+      query: `
+        {
+          author(id: 1) {
+            booksConnection(first: 2, after: "3", before: "10") {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+              }
+              edges {
+                node {
+                  id,
+                  title
+                }
+                cursor
+              }
+            }
+          }
+        }
+      `,
+    });
+    expect(response.data).toMatchSnapshot();
+  });
 });

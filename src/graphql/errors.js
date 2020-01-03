@@ -1,4 +1,8 @@
-const { AuthenticationError, ForbiddenError } = require("apollo-server");
+const {
+  AuthenticationError,
+  ForbiddenError,
+  UserInputError,
+} = require("apollo-server");
 
 const formatError = err => {
   if (err.message.startsWith("Database Error: ")) {
@@ -10,4 +14,9 @@ const formatError = err => {
   return err;
 };
 
-module.exports = { AuthenticationError, ForbiddenError, formatError };
+module.exports = {
+  AuthenticationError,
+  ForbiddenError,
+  formatError,
+  UserInputError,
+};

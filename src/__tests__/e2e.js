@@ -1,9 +1,21 @@
 const { startServer } = require("../server");
+const { client } = require("../postgres");
 const axios = require("axios");
 
 describe("e2e", () => {
+  let httpServer;
+
+  beforeAll(async () => {
+    httpServer = await startServer();
+    client.initialize();
+  });
+
+  afterAll(async () => {
+    httpServer.server.close();
+    await client.end();
+  });
+
   test("gets a list of books", async () => {
-    const httpServer = await startServer();
     const response = await axios.post(`${httpServer.url}graphql`, {
       query: `
         {
@@ -27,11 +39,9 @@ describe("e2e", () => {
       `,
     });
     expect(response.data).toMatchSnapshot();
-    httpServer.server.close();
   });
 
   test("gets a list of books", async () => {
-    const httpServer = await startServer();
     const response = await axios.post(`${httpServer.url}graphql`, {
       query: `
         {
@@ -50,11 +60,9 @@ describe("e2e", () => {
       `,
     });
     expect(response.data).toMatchSnapshot();
-    httpServer.server.close();
   });
 
   test("gets a list of books", async () => {
-    const httpServer = await startServer();
     const response = await axios.post(`${httpServer.url}graphql`, {
       query: `
         {
@@ -74,6 +82,5 @@ describe("e2e", () => {
       `,
     });
     expect(response.data).toMatchSnapshot();
-    httpServer.server.close();
   });
 });

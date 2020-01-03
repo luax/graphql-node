@@ -5,7 +5,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const graphql = require("../src/graphql");
-const { client: postgres } = require("../src/postgres");
+const { client } = require("../src/postgres");
+client.initialize();
 
 console.log(`
   usage:
@@ -20,7 +21,7 @@ console.log(`
 
     Press ^C to abort current expression, ^D to exit the repl
 
-    > await postgres.query("SELECT NOW() as now")
+    > await db.query("SELECT NOW() as now")
     [ { now: 2020-01-01T16:53:48.115Z } ]
     > const author = await graphql.loaders().authors.getById.load("...")
     { id: '...', name: 'Foo bar', ... }
@@ -34,8 +35,8 @@ console.log(`
 
 const server = repl.start("> ");
 server.context.graphql = graphql;
-server.context.postgres = postgres;
-server.context.db = postgres;
+server.context.postgres = client;
+server.context.db = client;
 
 const historyPath = process.env.NODE_REPL_HISTORY || ".node_repl_history";
 server.setupHistory(historyPath, (err, _server) => {

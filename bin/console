@@ -35,6 +35,7 @@ console.log(`
 const server = repl.start("> ");
 server.context.graphql = graphql;
 server.context.postgres = postgres;
+server.context.db = postgres;
 
 const historyPath = process.env.NODE_REPL_HISTORY || ".node_repl_history";
 server.setupHistory(historyPath, (err, _server) => {

@@ -35,22 +35,16 @@ const resolvers = {
   },
 };
 
-const serializeAuthor = author => ({
-  id: author.id,
-  name: author.name,
-});
-
 const isAuthorized = (user, _p) => user !== null;
 
 const loaders = () => ({
   authors: {
     getById: new DataLoader(async ids => {
       const res = await client.query(
-        `SELECT id, name FROM authors WHERE id IN ($1)`,
-        ids,
+        `SELECT id, name FROM authors WHERE id = ANY ($1) ORDER BY id ASC`,
+        [ids],
       );
-      const authors = res.map(p => serializeAuthor(p));
-      return ids.map(id => authors.find(p => p.id == id));
+      return ids.map(id => res.find(p => p.id == id));
     }),
   },
 });

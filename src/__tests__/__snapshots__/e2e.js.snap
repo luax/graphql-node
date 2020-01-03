@@ -5,12 +5,1268 @@ Object {
   "data": Object {
     "books": Array [
       Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "1",
+        "title": "Harry Potter and the Philosopher’s stonee",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "2",
         "title": "Harry Potter and the Chamber of Secrets",
       },
       Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "3",
+        "title": "Harry Potter and the Chamber of Secrets",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "4",
+        "title": "Harry Potter and the Prisoner of Azkaban",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "5",
+        "title": "Harry Potter and the Goblet of Fire",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "6",
+        "title": "Harry Potter and the Order of the Phoenix",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "7",
+        "title": "Harry Potter and the Half-Blood Prince",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "2",
+                "name": "Michael Crichton",
+              },
+              "id": "8",
+              "title": "Jurassic Park",
+            },
+          ],
+          "id": "2",
+          "name": "Michael Crichton",
+        },
+        "id": "8",
         "title": "Jurassic Park",
       },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "9",
+        "title": "Harry Potter and the Deathly Hallows",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "10",
+        "title": "Fantastic Beasts and Where to Find Them",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "11",
+        "title": "Quidditch Through the Ages",
+      },
+      Object {
+        "author": Object {
+          "books": Array [
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "1",
+              "title": "Harry Potter and the Philosopher’s stonee",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "2",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "3",
+              "title": "Harry Potter and the Chamber of Secrets",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "4",
+              "title": "Harry Potter and the Prisoner of Azkaban",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "5",
+              "title": "Harry Potter and the Goblet of Fire",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "6",
+              "title": "Harry Potter and the Order of the Phoenix",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "7",
+              "title": "Harry Potter and the Half-Blood Prince",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "9",
+              "title": "Harry Potter and the Deathly Hallows",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "10",
+              "title": "Fantastic Beasts and Where to Find Them",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "11",
+              "title": "Quidditch Through the Ages",
+            },
+            Object {
+              "author": Object {
+                "id": "1",
+                "name": "J.K. Rowling",
+              },
+              "id": "12",
+              "title": "The Tales of Beedle the Bard",
+            },
+          ],
+          "id": "1",
+          "name": "J.K. Rowling",
+        },
+        "id": "12",
+        "title": "The Tales of Beedle the Bard",
+      },
+      Object {
+        "author": null,
+        "id": "13",
+        "title": "Ghost Author",
+      },
     ],
+  },
+}
+`;
+
+exports[`e2e gets a list of books 2`] = `
+Object {
+  "data": Object {
+    "book": Object {
+      "author": Object {
+        "books": Array [
+          Object {
+            "id": "1",
+            "title": "Harry Potter and the Philosopher’s stonee",
+          },
+          Object {
+            "id": "2",
+            "title": "Harry Potter and the Chamber of Secrets",
+          },
+          Object {
+            "id": "3",
+            "title": "Harry Potter and the Chamber of Secrets",
+          },
+          Object {
+            "id": "4",
+            "title": "Harry Potter and the Prisoner of Azkaban",
+          },
+          Object {
+            "id": "5",
+            "title": "Harry Potter and the Goblet of Fire",
+          },
+          Object {
+            "id": "6",
+            "title": "Harry Potter and the Order of the Phoenix",
+          },
+          Object {
+            "id": "7",
+            "title": "Harry Potter and the Half-Blood Prince",
+          },
+          Object {
+            "id": "9",
+            "title": "Harry Potter and the Deathly Hallows",
+          },
+          Object {
+            "id": "10",
+            "title": "Fantastic Beasts and Where to Find Them",
+          },
+          Object {
+            "id": "11",
+            "title": "Quidditch Through the Ages",
+          },
+          Object {
+            "id": "12",
+            "title": "The Tales of Beedle the Bard",
+          },
+        ],
+        "name": "J.K. Rowling",
+      },
+      "id": "1",
+      "title": "Harry Potter and the Philosopher’s stonee",
+    },
+  },
+}
+`;
+
+exports[`e2e gets a list of books 3`] = `
+Object {
+  "data": Object {
+    "author": Object {
+      "books": Array [
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "1",
+          "title": "Harry Potter and the Philosopher’s stonee",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "2",
+          "title": "Harry Potter and the Chamber of Secrets",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "3",
+          "title": "Harry Potter and the Chamber of Secrets",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "4",
+          "title": "Harry Potter and the Prisoner of Azkaban",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "5",
+          "title": "Harry Potter and the Goblet of Fire",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "6",
+          "title": "Harry Potter and the Order of the Phoenix",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "7",
+          "title": "Harry Potter and the Half-Blood Prince",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "9",
+          "title": "Harry Potter and the Deathly Hallows",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "10",
+          "title": "Fantastic Beasts and Where to Find Them",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "11",
+          "title": "Quidditch Through the Ages",
+        },
+        Object {
+          "author": Object {
+            "id": "1",
+            "name": "J.K. Rowling",
+          },
+          "id": "12",
+          "title": "The Tales of Beedle the Bard",
+        },
+      ],
+      "id": "1",
+      "name": "J.K. Rowling",
+    },
   },
 }
 `;

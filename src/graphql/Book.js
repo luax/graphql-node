@@ -1,4 +1,5 @@
 const DataLoader = require("dataloader");
+const groupBy = require("lodash.groupby");
 const { AuthenticationError } = require("./errors");
 const { client } = require("../postgres");
 const { gql } = require("apollo-server");
@@ -15,24 +16,14 @@ const typeDefs = gql`
   }
 `;
 
-const books = [
-  {
-    id: 1,
-    title: "Harry Potter and the Chamber of Secrets",
-    authorId: "J.K. Rowling",
-  },
-  {
-    id: 2,
-    title: "Jurassic Park",
-    authorId: "Michael Crichton",
-  },
-];
-
 const resolvers = {
   Query: {
-    books: () => books,
+    books: async () =>
+      await client.query(
+        "SELECT id, title, author_id FROM books ORDER BY id ASC",
+      ),
     book: (_obj, { id }, context, _info) =>
-      context.loaders.books.getBooks.load(id),
+      context.loaders.books.getById.load(id),
   },
   Book: {
     author: (book, _, { user, loaders, models }, _info) => {
@@ -53,21 +44,20 @@ const isAuthorized = user => user !== null;
 
 const loaders = () => ({
   books: {
-    getBooks: new DataLoader(async ids => {
+    getById: new DataLoader(async ids => {
       const res = await client.query(
-        "SELECT id, title, author_id FROM books WHERE id IN ($1)",
-        ids,
+        "SELECT id, title, author_id FROM books WHERE id = ANY ($1) ORDER BY id ASC",
+        [ids],
       );
       return ids.map(id => res.find(b => b.id == id));
     }),
     getByAuthorId: new DataLoader(async ids => {
-      const res = await client.query(
-        "SELECT id, title, author_id FROM books WHERE author_id IN ($1)",
-        ids,
+      const books = await client.query(
+        "SELECT id, title, author_id FROM books WHERE author_id = ANY ($1) ORDER BY id ASC",
+        [ids],
       );
-      return [
-        res, // TODO: Allow more to be returned?
-      ];
+      const booksByAuthor = groupBy(books, "author_id");
+      return ids.map(authorId => booksByAuthor[authorId]);
     }),
   },
 });

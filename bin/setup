@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
 yarn install
+
+createdb graphql-node
+createdb graphql-node-test
+
+psql graphql-node < db/schema.sql
+psql graphql-node-test < db/schema.sql

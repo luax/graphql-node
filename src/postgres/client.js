@@ -12,7 +12,7 @@ module.exports = {
     const start = Date.now();
     const res = await pool.query(query, params);
     const duration = Date.now() - start;
-    console.log({ query, duration, rows: res.rowCount });
+    console.log({ query, params, duration, rows: res.rowCount });
     return res.rows;
   },
 };

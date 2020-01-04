@@ -1,4 +1,5 @@
 const DataLoader = require("dataloader");
+const BookConnection = require("./BookConnection");
 const { AuthenticationError, UserInputError } = require("./errors");
 const { client } = require("../postgres");
 const { gql } = require("apollo-server");
@@ -86,30 +87,52 @@ const resolvers = {
     booksConnection: async (
       author,
       { first = 0, last = 0, after = null, before = null },
-      { user, models },
+      { user, models, loaders },
       _info,
     ) => {
       if (!isAuthorized(user, author)) {
         throw new AuthenticationError("not authenticated");
       }
+      const isFirst = first > 0;
+      const isLast = last > 0;
       if (first < 0 || last < 0) {
         throw new Error("positive");
       }
-      if (first <= 0 && last <= 0) {
+      if (!isFirst && !isLast) {
         throw new UserInputError("first or last must be positive");
       }
-      if (first > 0 && last > 0) {
+      if (isFirst && isLast) {
         throw new Error("fool");
       }
-      // TODO: defaults and upper limit
-      const booksConnection = await models.Book.getBooksConnection(
-        author,
-        first,
-        last,
-        after,
-        before,
+      const limit = first || last; // TODO: defaults and upper limit
+      const beforeBook = before && (await loaders.books.getById.load(before));
+      if (before && !beforeBook) {
+        throw new UserInputError("bad before cursor");
+      }
+      const afterBook = after && (await loaders.books.getById.load(after));
+      if (after && !afterBook) {
+        throw new UserInputError("bad after cursor");
+      }
+      const connection = new BookConnection(author);
+      const edges = await connection.getEdges(
+        // TODO: Lazy load?
+        beforeBook,
+        afterBook,
+        limit,
+        isFirst,
+        isLast,
       );
-      return booksConnection;
+      edges.forEach(edge => {
+        const book = edge.node;
+        if (!models.Book.isAuthorized(user, book)) {
+          throw new AuthenticationError("buu");
+        }
+      });
+      return {
+        totalCount: connection.getTotalCount,
+        pageInfo: connection.getPageInfo(edges),
+        edges,
+      };
     },
   },
 };

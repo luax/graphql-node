@@ -1,6 +1,6 @@
 # graphql-node
 
-Based on Apollo's [getting started guide](https://www.apollographql.com/docs/apollo-server/getting-started/) with added functionality like [cursor-based pagination](https://facebook.github.io/relay/graphql/connections.htm) or [DataLoader](https://github.com/graphql/dataloader) for caching and batching PostgresSQL statements.
+Based on Apollo's [getting started guide](https://www.apollographql.com/docs/apollo-server/getting-started/) with added functionality like [cursor-based pagination](https://facebook.github.io/relay/graphql/connections.htm) (WIP) or [DataLoader](https://github.com/graphql/dataloader) for caching and batching PostgresSQL statements.
 
 ## Usage
 

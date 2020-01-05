@@ -15,7 +15,7 @@ Go to [http://localhost:4000/](http://localhost:4000/) and enter some query, for
 ```
 {
   author(id: 1) {
-    booksConnection(first: 11) {
+    booksConnection(input: { first: 11 }) {
       totalCount
       pageInfo {
         hasNextPage

@@ -1,23 +1,13 @@
 const merge = require("lodash.merge");
 const context = require("./context");
-const Query = require("./Query");
+const Root = require("./Root");
 const Book = require("./Book");
 const User = require("./User");
 const Author = require("./Author");
 
-const typeDefs = [
-  Query.typeDefs,
-  Author.typeDefs,
-  Book.typeDefs,
-  User.typeDefs,
-];
+const typeDefs = [Root.typeDefs, Author.typeDefs, Book.typeDefs, User.typeDefs];
 
-const resolvers = merge(
-  Query.resolvers,
-  Author.resolvers,
-  Book.resolvers,
-  User.resolvers,
-);
+const resolvers = merge(Author.resolvers, Book.resolvers, User.resolvers);
 
 const models = { Book, Author, User };
 

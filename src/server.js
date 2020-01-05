@@ -12,6 +12,15 @@ const createServer = ({ typeDefs, resolvers, context }) => {
       return response;
     },
     tracing: process.env.NODE_ENV === "development",
+    onHealthCheck: () =>
+      new Promise((resolve, reject) => {
+        const healthy = true;
+        if (healthy) {
+          resolve();
+        } else {
+          reject(new Error());
+        }
+      }),
   });
   return server;
 };
@@ -23,6 +32,9 @@ const startServer = async () => {
   });
   console.log(
     `🚀  Server ready at ${httpServer.url} (env "${process.env.NODE_ENV}")`,
+  );
+  console.log(
+    `Health check at: ${httpServer.url}.well-known/apollo/server-health`,
   );
   return httpServer;
 };

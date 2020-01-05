@@ -41,7 +41,7 @@ describe("e2e", () => {
     expect(response.data).toMatchSnapshot();
   });
 
-  test("gets a list of books", async () => {
+  test("gets a book", async () => {
     const response = await axios.post(`${httpServer.url}graphql`, {
       query: `
         {
@@ -62,7 +62,7 @@ describe("e2e", () => {
     expect(response.data).toMatchSnapshot();
   });
 
-  test("gets a list of books", async () => {
+  test("gets an author", async () => {
     const response = await axios.post(`${httpServer.url}graphql`, {
       query: `
         {
@@ -89,7 +89,7 @@ describe("e2e", () => {
       query: `
         {
           author(id: 1) {
-            booksConnection(last: 2, after: "3", before: "10") {
+            booksConnection(input: { last: 2, after: "3", before: "10" }) {
               pageInfo {
                 hasNextPage
                 hasPreviousPage
@@ -116,7 +116,7 @@ describe("e2e", () => {
       query: `
         {
           author(id: 1) {
-            booksConnection(first: 2, after: "3", before: "10") {
+            booksConnection(input: { first: 2, after: "3", before: "10" }) {
               pageInfo {
                 hasNextPage
                 hasPreviousPage

@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`e2e gets a book 1`] = `
+Object {
+  "data": Object {
+    "book": Object {
+      "author": Object {
+        "books": Array [
+          Object {
+            "id": "1",
+            "title": "Harry Potter and the Philosopher’s stonee",
+          },
+          Object {
+            "id": "2",
+            "title": "Harry Potter and the Chamber of Secrets",
+          },
+          Object {
+            "id": "3",
+            "title": "Harry Potter and the Chamber of Secrets",
+          },
+          Object {
+            "id": "4",
+            "title": "Harry Potter and the Prisoner of Azkaban",
+          },
+          Object {
+            "id": "5",
+            "title": "Harry Potter and the Goblet of Fire",
+          },
+          Object {
+            "id": "6",
+            "title": "Harry Potter and the Order of the Phoenix",
+          },
+          Object {
+            "id": "7",
+            "title": "Harry Potter and the Half-Blood Prince",
+          },
+          Object {
+            "id": "9",
+            "title": "Harry Potter and the Deathly Hallows",
+          },
+          Object {
+            "id": "10",
+            "title": "Fantastic Beasts and Where to Find Them",
+          },
+          Object {
+            "id": "11",
+            "title": "Quidditch Through the Ages",
+          },
+          Object {
+            "id": "12",
+            "title": "The Tales of Beedle the Bard",
+          },
+        ],
+        "name": "J.K. Rowling",
+      },
+      "id": "1",
+      "title": "Harry Potter and the Philosopher’s stonee",
+    },
+  },
+}
+`;
+
 exports[`e2e gets a list of books 1`] = `
 Object {
   "data": Object {
@@ -1110,67 +1170,7 @@ Object {
 }
 `;
 
-exports[`e2e gets a list of books 2`] = `
-Object {
-  "data": Object {
-    "book": Object {
-      "author": Object {
-        "books": Array [
-          Object {
-            "id": "1",
-            "title": "Harry Potter and the Philosopher’s stonee",
-          },
-          Object {
-            "id": "2",
-            "title": "Harry Potter and the Chamber of Secrets",
-          },
-          Object {
-            "id": "3",
-            "title": "Harry Potter and the Chamber of Secrets",
-          },
-          Object {
-            "id": "4",
-            "title": "Harry Potter and the Prisoner of Azkaban",
-          },
-          Object {
-            "id": "5",
-            "title": "Harry Potter and the Goblet of Fire",
-          },
-          Object {
-            "id": "6",
-            "title": "Harry Potter and the Order of the Phoenix",
-          },
-          Object {
-            "id": "7",
-            "title": "Harry Potter and the Half-Blood Prince",
-          },
-          Object {
-            "id": "9",
-            "title": "Harry Potter and the Deathly Hallows",
-          },
-          Object {
-            "id": "10",
-            "title": "Fantastic Beasts and Where to Find Them",
-          },
-          Object {
-            "id": "11",
-            "title": "Quidditch Through the Ages",
-          },
-          Object {
-            "id": "12",
-            "title": "The Tales of Beedle the Bard",
-          },
-        ],
-        "name": "J.K. Rowling",
-      },
-      "id": "1",
-      "title": "Harry Potter and the Philosopher’s stonee",
-    },
-  },
-}
-`;
-
-exports[`e2e gets a list of books 3`] = `
+exports[`e2e gets an author 1`] = `
 Object {
   "data": Object {
     "author": Object {

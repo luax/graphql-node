@@ -7,7 +7,12 @@ const Author = require("./Author");
 
 const typeDefs = [Root.typeDefs, Author.typeDefs, Book.typeDefs, User.typeDefs];
 
-const resolvers = merge(Author.resolvers, Book.resolvers, User.resolvers);
+const resolvers = merge(
+  Root.resolvers,
+  Author.resolvers,
+  Book.resolvers,
+  User.resolvers,
+);
 
 const models = { Book, Author, User };
 

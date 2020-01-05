@@ -5,11 +5,24 @@ const { client } = require("../postgres");
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-  type Book {
+  type Book implements Node {
     id: ID!
     title: String
     author: Author
   }
+
+  type BookEdge implements Edge {
+    node: Book!
+    cursor: String!
+  }
+
+  type BookConnection implements Connection {
+    edges: [BookEdge]!
+    nodes: [Book]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+  }
+
   extend type Query {
     books: [Book]
     book(id: ID!): Book

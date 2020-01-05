@@ -8,13 +8,9 @@ const users = [
 ];
 
 const typeDefs = gql`
-  type User {
-    id: String!
+  type User implements Node {
+    id: ID!
     email: String!
-  }
-
-  extend type Query {
-    me: User
   }
 
   input UpdateUserEmailInput {
@@ -26,7 +22,11 @@ const typeDefs = gql`
     code: String!
     success: Boolean!
     message: String!
-    user: User
+    node: User
+  }
+
+  extend type Query {
+    me: User
   }
 
   extend type Mutation {
@@ -37,28 +37,25 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
-  MutationResponse: {
-    // TODO: Move to root?
-    __resolveType: (obj, _context, _info) => {
-      if (obj.user) {
-        return "UpdateUserEmailMutationResponse";
-      }
-      throw new Error("__resolveType");
-      // TODO: Throw error or return null?
-    },
-  },
   Query: {
     me: async (_, _args, { user }, _info) => user,
   },
   Mutation: {
     updateUserEmail: async (_, { input: { id, email } }, _context, _info) => {
       const user = users.find(user => user.id === id);
-      user.email = email;
+      if (user) {
+        user.email = email;
+        return {
+          code: "200",
+          success: true,
+          message: "User email was successfully updated",
+          user,
+        };
+      }
       return {
-        code: "200",
-        success: true,
-        message: "User email was successfully updated",
-        user,
+        code: "400",
+        success: false,
+        message: "Could not update user",
       };
     },
   },

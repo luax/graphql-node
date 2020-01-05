@@ -88,7 +88,7 @@ class BookConnection {
       node: book,
       cursor: book.id,
     }));
-    return edges;
+    return [edges, books];
   };
 }
 

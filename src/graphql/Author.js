@@ -55,6 +55,7 @@ const typeDefs = gql`
   # https://facebook.github.io/relay/graphql/connections.htm
   type BookConnection {
     edges: [BookEdge]!
+    nodes: [Book]!
     pageInfo: PageInfo!
     totalCount: Int!
   }
@@ -114,7 +115,7 @@ const resolvers = {
         throw new UserInputError("bad after cursor");
       }
       const connection = new BookConnection(author);
-      const edges = await connection.getEdges(
+      const [edges, nodes] = await connection.getEdges(
         // TODO: Lazy load?
         beforeBook,
         afterBook,
@@ -132,6 +133,7 @@ const resolvers = {
         totalCount: connection.getTotalCount,
         pageInfo: connection.getPageInfo(edges),
         edges,
+        nodes,
       };
     },
   },

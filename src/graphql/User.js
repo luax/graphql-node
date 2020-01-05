@@ -37,6 +37,16 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
+  MutationResponse: {
+    // TODO: Move to root?
+    __resolveType: (obj, _context, _info) => {
+      if (obj.user) {
+        return "UpdateUserEmailMutationResponse";
+      }
+      throw new Error("__resolveType");
+      // TODO: Throw error or return null?
+    },
+  },
   Query: {
     me: async (_, _args, { user }, _info) => user,
   },

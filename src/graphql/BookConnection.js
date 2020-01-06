@@ -83,6 +83,7 @@ class BookConnection {
       `,
       [this.getAuthor().id, beforeCursor, afterCursor, limit, isFirst, isLast],
     );
+    // TODO: Use getBookById loader instead?
     const books = res.map(r => Book.serializeBook(r));
     const edges = books.map(book => ({
       node: book,

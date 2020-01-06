@@ -28,7 +28,7 @@ const startServer = async apolloServer => {
   });
   const url = getUrl(httpServer.address());
   console.log(`🚀  Server ready at ${url} (env "${process.env.NODE_ENV}")`);
-  console.log(`Health check at: ${url}/.well-known/apollo/server-health`);
+  console.log(`Health check at: ${url}.well-known/apollo/server-health`);
   return { url, server: httpServer, apolloServer, app };
 };
 

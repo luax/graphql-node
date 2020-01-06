@@ -15,6 +15,34 @@ const typeDefs = gql`
   extend type Query {
     author(id: ID!): Author
   }
+
+  input CreateAuthorInput {
+    name: String!
+  }
+
+  input UpdateAuthorInput {
+    id: ID!
+    name: String!
+  }
+
+  type CreateAuthorMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    node: Author
+  }
+
+  type UpdateAuthorMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    node: Author
+  }
+
+  extend type Mutation {
+    createAuthor(input: CreateAuthorInput!): CreateAuthorMutationResponse!
+    updateAuthor(input: UpdateAuthorInput!): UpdateAuthorMutationResponse!
+  }
 `;
 
 const isAuthorized = (user, _p) => user !== null;
@@ -87,6 +115,14 @@ const resolvers = {
         edges,
         nodes,
       };
+    },
+  },
+  Mutation: {
+    createAuthor: async (_, { input: { _name } }, _context, _info) => {
+      // TODO: ...
+    },
+    updateAuthor: async (_, { input: { _id, _name } }, _context, _info) => {
+      // TODO: ...
     },
   },
 };

@@ -1,7 +1,7 @@
 const DataLoader = require("dataloader");
 const groupBy = require("lodash.groupby");
 const { AuthenticationError } = require("./errors");
-const { client } = require("../postgres");
+const { client, sql } = require("../postgres");
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
@@ -41,7 +41,7 @@ const resolvers = {
   Query: {
     books: async () => {
       const res = await client.query(
-        "SELECT id, title, author_id FROM books ORDER BY id ASC",
+        sql`SELECT id, title, author_id FROM books ORDER BY id ASC`,
       );
       const books = res.map(r => serializeBook(r));
       return books;
@@ -67,17 +67,17 @@ const resolvers = {
 const loaders = () => ({
   books: {
     getById: new DataLoader(async ids => {
+      const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
-        "SELECT id, title, author_id FROM books WHERE id = ANY ($1) ORDER BY id ASC",
-        [ids],
+        sql`SELECT id, title, author_id FROM books WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       const books = res.map(r => serializeBook(r));
       return ids.map(id => books.find(b => b.id === id));
     }),
     getByAuthorId: new DataLoader(async ids => {
+      const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
-        "SELECT id, title, author_id FROM books WHERE author_id = ANY ($1) ORDER BY id ASC",
-        [ids],
+        sql`SELECT id, title, author_id FROM books WHERE author_id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       const books = res.map(r => serializeBook(r));
       const booksByAuthor = groupBy(books, "authorId");

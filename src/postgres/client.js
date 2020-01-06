@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+const { createPool } = require("slonik");
 
 let pool = {
   query: () => {
@@ -11,18 +11,24 @@ module.exports = {
     const start = Date.now();
     const res = await pool.query(query, params);
     const duration = Date.now() - start;
-    if (process.env.NODE_ENV === "development")
-      console.log({ query, params, duration, rows: res.rowCount });
+    if (process.env.NODE_ENV === "development") {
+      console.log({
+        query: {
+          sql: query.sql,
+          values: JSON.stringify(query.values),
+        },
+        duration,
+        rows: res.rowCount,
+      });
+    }
     return res.rows;
   },
   initialize: () => {
     if (init) throw new Error("called initialize twice");
     init = true;
-    pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      max: 20,
-      idleTimeoutMillis: 0,
-      connectionTimeoutMillis: 2000,
+    pool = createPool(process.env.DATABASE_URL, {
+      maximumPoolSize: 20,
+      connectionTimeout: 2000,
     });
   },
   end: async () => pool.end(),

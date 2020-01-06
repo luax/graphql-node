@@ -1,7 +1,7 @@
 const DataLoader = require("dataloader");
 const BookConnection = require("./BookConnection");
 const { AuthenticationError, UserInputError } = require("./errors");
-const { client } = require("../postgres");
+const { client, sql } = require("../postgres");
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
@@ -135,9 +135,9 @@ const serializeAuthor = record => ({
 const loaders = () => ({
   authors: {
     getById: new DataLoader(async ids => {
+      const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
-        `SELECT id, name FROM authors WHERE id = ANY ($1) ORDER BY id ASC`,
-        [ids],
+        sql`SELECT id, name FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       const authors = res.map(r => serializeAuthor(r));
       return ids.map(id => authors.find(p => p.id === id));

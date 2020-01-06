@@ -3,5 +3,8 @@ dotenv.config();
 
 const { client } = require("./postgres");
 client.initialize();
-const { startServer } = require("./server");
-startServer();
+
+const graphql = require("./graphql");
+const { startServer, createApolloServer } = require("./server");
+
+startServer(createApolloServer(graphql));

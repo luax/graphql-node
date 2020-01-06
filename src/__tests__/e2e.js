@@ -1,22 +1,23 @@
-const { startServer } = require("../server");
+const graphql = require("../graphql");
+const { startServer, createApolloServer } = require("../server");
 const { client } = require("../postgres");
 const axios = require("axios");
 
 describe("e2e", () => {
-  let httpServer;
+  let serverInfo;
 
   beforeAll(async () => {
-    httpServer = await startServer();
+    serverInfo = await startServer(createApolloServer(graphql));
     client.initialize();
   });
 
   afterAll(async () => {
-    httpServer.server.close();
+    serverInfo.server.close();
     await client.end();
   });
 
   test("gets a list of books", async () => {
-    const response = await axios.post(`${httpServer.url}graphql`, {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
       query: `
         {
           books {
@@ -42,7 +43,7 @@ describe("e2e", () => {
   });
 
   test("gets a book", async () => {
-    const response = await axios.post(`${httpServer.url}graphql`, {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
       query: `
         {
           book(id: 1) {
@@ -63,7 +64,7 @@ describe("e2e", () => {
   });
 
   test("gets an author", async () => {
-    const response = await axios.post(`${httpServer.url}graphql`, {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
       query: `
         {
           author(id: 1) {
@@ -85,7 +86,7 @@ describe("e2e", () => {
   });
 
   test("paginated list of books with last", async () => {
-    const response = await axios.post(`${httpServer.url}graphql`, {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
       query: `
         {
           author(id: 1) {
@@ -112,7 +113,7 @@ describe("e2e", () => {
   });
 
   test("paginated list of books with first", async () => {
-    const response = await axios.post(`${httpServer.url}graphql`, {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
       query: `
         {
           author(id: 1) {

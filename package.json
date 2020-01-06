@@ -25,7 +25,6 @@
     "husky": "3.1.0",
     "jest": "24.9.0",
     "lint-staged": "9.5.0",
-    "nodemon": "2.0.2",
     "prettier": "1.19.1"
   },
   "babel": {
@@ -97,11 +96,17 @@
   },
   "dependencies": {
     "apollo-server": "2.9.15",
+    "apollo-server-express": "2.9.15",
+    "compression": "1.7.4",
+    "cors": "2.8.5",
     "dataloader": "2.0.0",
     "dotenv": "8.2.0",
+    "express": "4.17.1",
     "graphql": "14.5.8",
+    "helmet": "3.21.2",
     "lodash.groupby": "4.6.0",
     "lodash.merge": "4.6.2",
+    "nodemon": "2.0.2",
     "pg": "7.17.0"
   },
   "jest": {

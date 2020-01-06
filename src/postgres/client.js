@@ -1,4 +1,4 @@
-const { createPool } = require("slonik");
+const { createPool, sql } = require("slonik");
 
 let pool = {
   query: () => {
@@ -7,6 +7,13 @@ let pool = {
 };
 let init = false;
 module.exports = {
+  columns: (
+    columns, // Given ["foo", "bar"] returns the SQL string sql`"foo", "bar"`
+  ) =>
+    sql.join(
+      columns.map(column => sql.identifier([column])),
+      sql`, `,
+    ),
   query: async (query, params) => {
     const start = Date.now();
     const res = await pool.query(query, params);

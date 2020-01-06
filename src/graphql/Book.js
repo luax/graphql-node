@@ -40,8 +40,9 @@ const serializeBook = record => ({
 const resolvers = {
   Query: {
     books: async () => {
+      const columns = client.columns(["id", "title", "author_id"]);
       const res = await client.query(
-        sql`SELECT id, title, author_id FROM books ORDER BY id ASC`,
+        sql`SELECT ${columns} FROM books ORDER BY id ASC`,
       );
       const books = res.map(r => serializeBook(r));
       return books;
@@ -67,17 +68,19 @@ const resolvers = {
 const loaders = () => ({
   books: {
     getById: new DataLoader(async ids => {
+      const columns = client.columns(["id", "title", "author_id"]);
       const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
-        sql`SELECT id, title, author_id FROM books WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
+        sql`SELECT ${columns} FROM books WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       const books = res.map(r => serializeBook(r));
       return ids.map(id => books.find(b => b.id === id));
     }),
     getByAuthorId: new DataLoader(async ids => {
+      const columns = client.columns(["id", "title", "author_id"]);
       const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
-        sql`SELECT id, title, author_id FROM books WHERE author_id = ANY (${sqlArray}) ORDER BY id ASC`,
+        sql`SELECT ${columns} FROM books WHERE author_id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       const books = res.map(r => serializeBook(r));
       const booksByAuthor = groupBy(books, "authorId");

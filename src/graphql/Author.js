@@ -135,9 +135,10 @@ const serializeAuthor = record => ({
 const loaders = () => ({
   authors: {
     getById: new DataLoader(async ids => {
+      const columns = client.columns(["id", "name"]);
       const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
-        sql`SELECT id, name FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
+        sql`SELECT ${columns} FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       const authors = res.map(r => serializeAuthor(r));
       return ids.map(id => authors.find(p => p.id === id));

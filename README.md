@@ -51,3 +51,4 @@ $ bin/setup
 - [GraphQL Cursor Connections Specification](https://facebook.github.io/relay/graphql/connections.htm)
 - [node postgres](http://node-postgres.com/)
 - [DataLoader](https://github.com/graphql/dataloader)
+- [slonik](https://github.com/gajus/slonik)

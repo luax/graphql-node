@@ -1,8 +1,9 @@
-const DataLoader = require("dataloader");
-const BookConnection = require("./BookConnection");
+const { dataloader } = require("../dataloader");
 const { AuthenticationError, UserInputError } = require("./errors");
 const { client, sql } = require("../postgres");
 const { gql } = require("apollo-server");
+const BookConnection = require("./BookConnection");
+const requestedColumns = require("./requestedColumns");
 
 const typeDefs = gql`
   type Author implements Node {
@@ -47,10 +48,18 @@ const typeDefs = gql`
 
 const isAuthorized = (user, _p) => user !== null;
 
+const getRequestedColumns = requestedColumns(
+  new Set(["id"]),
+  new Set(["name"]),
+);
+
 const resolvers = {
   Query: {
-    author: async (_, { id }, { user, loaders }, _info) => {
-      const author = loaders.authors.getById.load(id);
+    author: async (_, { id }, { user, loaders }, info) => {
+      const author = loaders.authors.getById.load({
+        id,
+        columns: getRequestedColumns(info),
+      });
       if (!isAuthorized(user, author)) {
         throw new AuthenticationError("not authenticated");
       }
@@ -58,11 +67,14 @@ const resolvers = {
     },
   },
   Author: {
-    books: async (author, _, { user, loaders }, _info) => {
+    books: async (author, _, { user, loaders, models }, info) => {
       if (!isAuthorized(user, author)) {
         throw new AuthenticationError("not authenticated");
       }
-      const books = await loaders.books.getByAuthorId.load(author.id);
+      const books = await loaders.books.getByAuthorId.load({
+        id: author.id,
+        columns: models.Book.getRequestedColumns(info),
+      });
       return books;
     },
     booksConnection: async (
@@ -85,16 +97,18 @@ const resolvers = {
       if (isFirst && isLast) {
         throw new Error("fool");
       }
+      const columns = models.Book.getRequestedColumns();
+      const getBookById = id => loaders.books.getById.load({ id, columns });
       const limit = first || last; // TODO: defaults and upper limit
-      const beforeBook = before && (await loaders.books.getById.load(before));
+      const beforeBook = before && (await getBookById(before));
       if (before && !beforeBook) {
         throw new UserInputError("bad before cursor");
       }
-      const afterBook = after && (await loaders.books.getById.load(after));
+      const afterBook = after && (await getBookById(after));
       if (after && !afterBook) {
         throw new UserInputError("bad after cursor");
       }
-      const connection = new BookConnection(author);
+      const connection = new BookConnection(author, getBookById);
       const [edges, nodes] = await connection.getEdges(
         // TODO: Lazy load?
         beforeBook,
@@ -129,13 +143,12 @@ const resolvers = {
 
 const serializeAuthor = record => ({
   id: record.id.toString(),
-  name: record.name,
+  name: record?.name,
 });
 
 const loaders = () => ({
   authors: {
-    getById: new DataLoader(async ids => {
-      const columns = client.columns(["id", "name"]);
+    getById: dataloader(async (ids, columns) => {
       const sqlArray = sql.array(ids, "int4");
       const res = await client.query(
         sql`SELECT ${columns} FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
@@ -146,4 +159,10 @@ const loaders = () => ({
   },
 });
 
-module.exports = { typeDefs, resolvers, loaders, isAuthorized };
+module.exports = {
+  typeDefs,
+  resolvers,
+  loaders,
+  isAuthorized,
+  getRequestedColumns,
+};

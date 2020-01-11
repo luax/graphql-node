@@ -1,17 +1,15 @@
-const Book = require("./Book");
 const { client, sql } = require("../postgres");
 
 class BookConnection {
-  constructor(author) {
+  constructor(author, getBookById) {
     this.author = author;
+    this.getBookById = getBookById;
   }
-
-  getAuthor = () => this.author;
 
   getTotalCount = async () => {
     const totalCountRes = await client.query(
       `SELECT count(*) as count FROM books WHERE author_id = $1`,
-      [this.getAuthor().id],
+      [this.author.id],
     );
     return totalCountRes[0].count;
   };
@@ -24,14 +22,14 @@ class BookConnection {
     return {
       // TODO: is hasNext/hasPrevious correct?
       hasNextPage: async () => {
-        const authorId = this.getAuthor().id;
+        const authorId = this.author.id;
         const hasNextRes = await client.query(
           sql`SELECT 1 FROM books WHERE author_id = ${authorId} AND id > ${endCursor} ORDER BY id ASC`,
         );
         return hasNextRes.length > 0;
       },
       hasPreviousPage: async () => {
-        const authorId = this.getAuthor().id;
+        const authorId = this.author.id;
         const hasPreviousRes = await client.query(
           sql`SELECT 1 FROM books WHERE author_id = ${authorId} AND id < ${endCursor} ORDER BY id ASC`,
         );
@@ -49,28 +47,26 @@ class BookConnection {
     isFirst = false,
     isLast = false,
   ) => {
-    const beforeCursor = beforeBook ? beforeBook.id : null;
-    const afterCursor = afterBook ? afterBook.id : null;
+    const beforeCursor = beforeBook?.id;
+    const afterCursor = afterBook?.id;
     // TODO: Make more dynamic using slonik?
     const res = await client.query(
       sql`
         SELECT
-          *
+          id
         FROM
           (
             SELECT
-              id,
-              title,
-              author_id
+              id
             FROM
               books
             WHERE
-              author_id = ${this.getAuthor().id}
+              author_id = ${this.author.id}
               AND CASE
                 WHEN ${beforeCursor} >= 0 AND ${afterCursor} >= 0 THEN id < ${beforeCursor} AND id > ${afterCursor}
                 WHEN ${beforeCursor} >= 0 THEN id < ${beforeCursor}
                 WHEN ${afterCursor} >= 0 THEN id > ${afterCursor}
-                ELSE author_id = ${this.getAuthor().id}
+                ELSE author_id = ${this.author.id}
               END
             ORDER BY
               -- TODO: triple check that this ordering works as intended
@@ -83,8 +79,7 @@ class BookConnection {
           id ASC
       `,
     );
-    // TODO: Use getBookById loader instead?
-    const books = res.map(r => Book.serializeBook(r));
+    const books = await Promise.all(res.map(r => this.getBookById(r.id)));
     const edges = books.map(book => ({
       node: book,
       cursor: book.id,

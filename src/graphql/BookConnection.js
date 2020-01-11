@@ -47,8 +47,8 @@ class BookConnection {
     isFirst = false,
     isLast = false,
   ) => {
-    const beforeCursor = beforeBook?.id;
-    const afterCursor = afterBook?.id;
+    const beforeCursor = beforeBook?.id || null;
+    const afterCursor = afterBook?.id || null;
     // TODO: Make more dynamic using slonik?
     const res = await client.query(
       sql`

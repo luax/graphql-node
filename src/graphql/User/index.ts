@@ -1,7 +1,7 @@
 import { gql, IResolvers, IFieldResolver } from "apollo-server";
 import { Context } from "../context";
 import express from "express";
-import { MutationResponse } from "../Root";
+import { Model, MutationResponse } from "../types";
 
 const users: User[] = [
   {
@@ -53,9 +53,7 @@ interface UpdateUserEmailInput {
   };
 }
 
-interface UpdateUserEmailMutationResponse extends MutationResponse {
-  node?: User;
-}
+type UpdateUserEmailMutationResponse = MutationResponse<User>;
 
 interface UserResolver extends IResolvers {
   Query: {
@@ -116,4 +114,4 @@ export default {
   typeDefs,
   resolvers,
   loaders,
-};
+} as Model<UserLoaders>;

@@ -1,28 +1,20 @@
 import { gql, IResolvers, IFieldResolver } from "apollo-server";
 import { client, sql, QueryResultRowType } from "../../postgres";
 import { Context } from "../context";
-import { Author } from "../author";
+import { Author } from "../Author";
 import DataLoader from "dataloader";
 import groupBy from "lodash/groupBy";
 import { PrimitiveValueExpressionTypeArray } from "slonik";
+import { Model } from "../types";
+import memoize from "lodash/memoize";
+import { MemoizedFunction } from "lodash";
+import { PaginationInput } from "../types";
 
 const typeDefs = gql`
   type Book implements Node {
     id: ID!
     title: String
     author: Author
-  }
-
-  type BookEdge implements Edge {
-    node: Book!
-    cursor: String!
-  }
-
-  type BookConnection implements Connection {
-    edges: [BookEdge]!
-    nodes: [Book]!
-    pageInfo: PageInfo!
-    totalCount: Int!
   }
 
   extend type Query {
@@ -80,6 +72,8 @@ export interface BookLoaders {
   books: {
     getById: DataLoader<string, Book | undefined>;
     getByAuthorId: DataLoader<string, (Book | undefined)[]>;
+    getIdsByPagination: ((input: PaginationInput) => Promise<number[]>) &
+      MemoizedFunction;
   };
 }
 
@@ -110,6 +104,40 @@ const loaders = (): BookLoaders => ({
       const booksByAuthor = groupBy(books, "authorId");
       return ids.map(authorId => booksByAuthor[authorId]);
     }),
+    getIdsByPagination: memoize(async input => {
+      // TODO: Make more dynamic using slonik?
+      const { primaryKey, limit, before, after, isFirst, isLast } = input;
+      const res = await client.query(
+        sql`
+          SELECT
+            id
+          FROM
+            (
+              SELECT
+                id
+              FROM
+                books
+              WHERE
+                author_id = ${primaryKey}
+                AND CASE
+                  WHEN ${before} >= 0 AND ${after} >= 0 THEN id < ${before} AND id > ${after}
+                  WHEN ${before} >= 0 THEN id < ${before}
+                  WHEN ${after} >= 0 THEN id > ${after}
+                  ELSE author_id = ${primaryKey}
+                END
+              ORDER BY
+                -- TODO: triple check that this ordering works as intended
+                CASE WHEN ${isFirst} IS true THEN id END ASC, -- first
+                CASE WHEN ${isLast} IS true THEN id END DESC -- last
+              LIMIT
+                ${limit}
+            ) AS q
+          ORDER BY
+            id ASC
+        `,
+      );
+      return res.map(o => o["id"] as number);
+    }),
   },
 });
 
@@ -117,4 +145,4 @@ export default {
   typeDefs,
   resolvers,
   loaders,
-};
+} as Model<BookLoaders>;

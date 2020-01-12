@@ -4,8 +4,13 @@ import { Context } from "../context";
 import { Book } from "../Book";
 import DataLoader from "dataloader";
 import { PrimitiveValueExpressionTypeArray } from "slonik";
+import { Model } from "../types";
 
 const typeDefs = gql`
+  extend type Query {
+    author(id: ID!): Author
+  }
+
   type Author implements Node {
     id: ID!
     name: String
@@ -13,8 +18,16 @@ const typeDefs = gql`
     booksConnection(input: ConnectionInput): BookConnection!
   }
 
-  extend type Query {
-    author(id: ID!): Author
+  type BookEdge implements Edge {
+    node: Book!
+    cursor: String!
+  }
+
+  type BookConnection implements Connection {
+    edges: [BookEdge]!
+    nodes: [Book]!
+    pageInfo: PageInfo!
+    totalCount: Int!
   }
 
   input CreateAuthorInput {
@@ -109,4 +122,4 @@ export default {
   typeDefs,
   resolvers,
   loaders,
-};
+} as Model<AuthorLoaders>;

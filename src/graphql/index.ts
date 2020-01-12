@@ -6,6 +6,7 @@ import Book, { BookLoaders } from "./Book";
 import Author, { AuthorLoaders } from "./Author";
 import { IResolvers } from "apollo-server";
 import { DocumentNode } from "graphql";
+import { Model } from "./types";
 
 const typeDefs: DocumentNode[] = [
   Root.typeDefs,
@@ -23,6 +24,8 @@ const resolvers: IResolvers = merge(
 
 export type Loaders = BookLoaders & UserLoaders & AuthorLoaders;
 
+const models: Model<BookLoaders | UserLoaders | AuthorLoaders>[] = [Author];
+
 const loaders = (): Loaders =>
   merge(Book.loaders(), User.loaders(), Author.loaders());
 
@@ -31,4 +34,5 @@ export default {
   resolvers,
   context: context(loaders),
   loaders,
+  models,
 };

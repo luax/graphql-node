@@ -130,6 +130,7 @@
       "no-console": "off",
       "no-magic-numbers": "off",
       "no-process-env": "off",
+      "no-warning-comments": "off",
       "capitalized-comments": "off",
       "max-params": "off",
       "prefer-destructuring": [

@@ -67,43 +67,6 @@ const typeDefs = gql`
   }
 `;
 
-export interface PageInfo {
-  endCursor: string;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  startCursor: string;
-}
-
-export interface Node {
-  id: string;
-}
-
-export interface MutationResponse {
-  code: string;
-  success: boolean;
-  message: string;
-  node?: Node;
-}
-
-export interface Edge {
-  cursor: string;
-  node: Node;
-}
-
-export interface Connection {
-  edges: Edge[];
-  nodes: Node[];
-  pageInfo: PageInfo;
-  totalCount: number;
-}
-
-export interface ConnectionInput {
-  after: string;
-  before: string;
-  first: number;
-  last: number;
-}
-
 // Return null on interfaces that are not used as result directly (no ambiguity)
 // const resolvers: IResolvers = {
 const resolvers: IResolvers = {

@@ -1,10 +1,12 @@
-const {
+import {
   AuthenticationError,
   ForbiddenError,
   UserInputError,
-} = require("apollo-server");
+} from "apollo-server";
+import { GraphQLFormattedError, GraphQLError } from "graphql";
+export { AuthenticationError } from "apollo-server";
 
-const formatError = err => {
+const formatError = (err: GraphQLError): GraphQLFormattedError => {
   if (err.message.startsWith("Database Error: ")) {
     return new Error("Internal server error");
   }
@@ -14,7 +16,7 @@ const formatError = err => {
   return err;
 };
 
-module.exports = {
+export default {
   AuthenticationError,
   ForbiddenError,
   formatError,

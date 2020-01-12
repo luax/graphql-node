@@ -1,20 +1,28 @@
-const { createPool, sql } = require("slonik");
+import {
+  createPool,
+  sql,
+  DatabasePoolType,
+  PrimitiveValueExpressionType,
+  ListSqlTokenType,
+  TaggedTemplateLiteralInvocationType,
+  QueryResultRowType,
+} from "slonik";
 
-let pool = {
-  query: () => {
-    throw new Error("call initialize first");
-  },
-};
+export { QueryResultRowType } from "slonik";
+
 let init = false;
-module.exports = {
-  columns: (
-    columns, // Given ["foo", "bar"] returns the SQL string sql`"foo", "bar"`
-  ) =>
+let pool: DatabasePoolType;
+
+export default {
+  columns: (columns: string[]): ListSqlTokenType =>
     sql.join(
       columns.map(column => sql.identifier([column])),
       sql`, `,
     ),
-  query: async (query, params) => {
+  query: async (
+    query: TaggedTemplateLiteralInvocationType,
+    params?: PrimitiveValueExpressionType[] | undefined,
+  ): Promise<readonly QueryResultRowType<string>[]> => {
     const start = Date.now();
     const res = await pool.query(query, params);
     const duration = Date.now() - start;
@@ -30,13 +38,13 @@ module.exports = {
     }
     return res.rows;
   },
-  initialize: () => {
+  initialize: (): void => {
     if (init) throw new Error("called initialize twice");
     init = true;
-    pool = createPool(process.env.DATABASE_URL, {
+    pool = createPool(process.env.DATABASE_URL || "", {
       maximumPoolSize: 20,
       connectionTimeout: 2000,
     });
   },
-  end: async () => pool.end(),
+  end: async (): Promise<void> => pool.end(),
 };

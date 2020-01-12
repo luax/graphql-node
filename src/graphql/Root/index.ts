@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+import { gql, IResolvers } from "apollo-server";
 
 const typeDefs = gql`
   type Query
@@ -67,20 +67,61 @@ const typeDefs = gql`
   }
 `;
 
+export interface PageInfo {
+  endCursor: string;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string;
+}
+
+export interface Node {
+  id: string;
+}
+
+export interface MutationResponse {
+  code: string;
+  success: boolean;
+  message: string;
+  node?: Node;
+}
+
+export interface Edge {
+  cursor: string;
+  node: Node;
+}
+
+export interface Connection {
+  edges: Edge[];
+  nodes: Node[];
+  pageInfo: PageInfo;
+  totalCount: number;
+}
+
+export interface ConnectionInput {
+  after: string;
+  before: string;
+  first: number;
+  last: number;
+}
+
 // Return null on interfaces that are not used as result directly (no ambiguity)
-const resolvers = {
+// const resolvers: IResolvers = {
+const resolvers: IResolvers = {
   MutationResponse: {
-    __resolveType: (_mutationResponse, _context, _info) => null,
+    __resolveType: (): null => null,
   },
   Node: {
-    __resolveType: (_node, _context, _info) => null,
+    __resolveType: (): null => null,
   },
   Edge: {
-    __resolveType: (_edge, _context, _info) => null,
+    __resolveType: (): null => null,
   },
   Connection: {
-    __resolveType: (_connection, _context, _info) => null,
+    __resolveType: (): null => null,
   },
 };
 
-module.exports = { typeDefs, resolvers };
+export default {
+  typeDefs,
+  resolvers,
+};

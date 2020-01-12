@@ -1,10 +1,10 @@
-#!/usr/bin/env node --harmony --experimental-repl-await
+#!/usr/bin/env yarn babel-node --extensions .ts --experimental-repl-await
 
 const repl = require("repl");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const graphql = require("../src/graphql");
+const graphql = require("../src/graphql").default;
 const { client, sql } = require("../src/postgres");
 client.initialize();
 
@@ -23,14 +23,10 @@ console.log(`
 
     > await db.query(sql\`SELECT NOW() as now\`)
     [ { now: 2020-01-01T16:53:48.115Z } ]
-    > const author = await graphql.loaders().authors.getById.load("...")
-    { id: '...', name: 'Foo bar', ... }
+    > const author = await graphql.loaders().authors.getById.load("1")
+    { id: '1', name: 'Foo bar', ... }
     > author
     { id: '...', name: 'Foo bar', ... }
-    > const { getUser } = require("../src/graphql/User")
-    undefined
-    > getUser
-    [Function: getUser]
 `);
 
 const server = repl.start("> ");

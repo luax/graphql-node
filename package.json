@@ -131,7 +131,13 @@
       "no-magic-numbers": "off",
       "no-process-env": "off",
       "no-warning-comments": "off",
+      "no-undefined": "off",
+      "no-inline-comments": "off",
+      "no-ternary": "off",
+      "no-invalid-this": "off",
+      "radix": "off",
       "capitalized-comments": "off",
+      "line-comment-position": "off",
       "max-params": "off",
       "prefer-destructuring": [
         "error",

@@ -27,6 +27,7 @@ console.log(`
     { id: '1', name: 'Foo bar', ... }
     > author
     { id: '...', name: 'Foo bar', ... }
+    > const graphql = require("./src/graphql").default;
 `);
 
 const server = repl.start("> ");

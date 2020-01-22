@@ -29,10 +29,13 @@ export type ServerInfo = {
   app: express.Application;
 };
 
-export const startServer = (apolloServer: ApolloServer): ServerInfo => {
+export const startServer = async (
+  apolloServer: ApolloServer,
+): Promise<ServerInfo> => {
   const app = setupExpress();
   apolloServer.applyMiddleware({ app });
-  const httpServer = app.listen({
+  // eslint-disable-next-line
+  const httpServer = await app.listen({
     port: process.env.PORT,
   });
   const address = httpServer.address() as net.AddressInfo;

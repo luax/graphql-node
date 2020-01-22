@@ -7,8 +7,8 @@ import { ServerInfo } from "../server/express";
 describe("e2e", () => {
   let serverInfo: ServerInfo;
 
-  beforeAll(() => {
-    serverInfo = startServer(createApolloServer(graphql));
+  beforeAll(async () => {
+    serverInfo = await startServer(createApolloServer(graphql));
     client.initialize();
   });
 
@@ -77,6 +77,60 @@ describe("e2e", () => {
               author {
                 id
                 name
+              }
+            }
+          }
+        }
+      `,
+    });
+    expect(response.data).toMatchSnapshot();
+  });
+
+  it("paginated list of books with last", async () => {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
+      query: `
+        {
+          author(id: 1) {
+            booksConnection(input: { last: 2, after: "3", before: "10" }) {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+              }
+              edges {
+                node {
+                  id,
+                  title
+                }
+                cursor
+              }
+            }
+          }
+        }
+      `,
+    });
+    expect(response.data).toMatchSnapshot();
+  });
+
+  it("paginated list of books with first", async () => {
+    const response = await axios.post(`${serverInfo.url}graphql`, {
+      query: `
+        {
+          author(id: 1) {
+            booksConnection(input: { first: 2, after: "3", before: "10" }) {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+              }
+              edges {
+                node {
+                  id,
+                  title
+                }
+                cursor
               }
             }
           }

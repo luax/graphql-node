@@ -1,12 +1,14 @@
 import merge from "lodash/merge";
 import context from "./context";
 import Root from "./Root";
-import User, { UserLoaders } from "./User";
-import Book, { BookLoaders } from "./Book";
-import Author, { AuthorLoaders } from "./Author";
+import User from "./User";
+import Book from "./Book";
+import Author from "./Author";
+import UserDataSource from "./User/DataSource";
+import BookDataSource from "./Book/DataSource";
+import AuthorDataSource from "./Author/DataSource";
 import { IResolvers } from "apollo-server";
 import { DocumentNode } from "graphql";
-import { Model } from "./types";
 
 const typeDefs: DocumentNode[] = [
   Root.typeDefs,
@@ -22,17 +24,22 @@ const resolvers: IResolvers = merge(
   Book.resolvers,
 );
 
-export type Loaders = BookLoaders & UserLoaders & AuthorLoaders;
+export type DataSources = {
+  author: AuthorDataSource;
+  book: BookDataSource;
+  user: UserDataSource;
+};
 
-const models: Model<BookLoaders | UserLoaders | AuthorLoaders>[] = [Author];
-
-const loaders = (): Loaders =>
-  merge(Book.loaders(), User.loaders(), Author.loaders());
+const dataSources = (): DataSources => ({
+  author: new Author.DataSource(),
+  book: new Book.DataSource(),
+  user: new User.DataSource(),
+});
 
 export default {
   typeDefs,
   resolvers,
-  context: context(loaders),
-  loaders,
-  models,
+  context,
+  // models,
+  dataSources,
 };

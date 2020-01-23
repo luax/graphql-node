@@ -4,9 +4,11 @@ const repl = require("repl");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const graphql = require("../src/graphql").default;
-const { client, sql } = require("../src/postgres");
-client.initialize();
+const graph = require("../src/graph").default;
+const postgres = require("../src/postgres");
+const db = postgres.default;
+db.initialize();
+const sql = postgres.sql;
 
 console.log(`
   usage:
@@ -23,17 +25,16 @@ console.log(`
 
     > await db.query(sql\`SELECT NOW() as now\`)
     [ { now: 2020-01-01T16:53:48.115Z } ]
-    > const author = await graphql.loaders().authors.getById.load("1")
+    > const author = await graph.loaders().authors.getById.load("1")
     { id: '1', name: 'Foo bar', ... }
     > author
     { id: '...', name: 'Foo bar', ... }
-    > const graphql = require("./src/graphql").default;
+    > const graph = require("./src/graph").default;
 `);
 
 const server = repl.start("> ");
-server.context.graphql = graphql;
-server.context.postgres = client;
-server.context.db = client;
+server.context.graph = graph;
+server.context.db = db;
 server.context.sql = sql;
 
 const historyPath = process.env.NODE_REPL_HISTORY || ".node_repl_history";

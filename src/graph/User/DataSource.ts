@@ -1,8 +1,9 @@
 import { User } from "./index";
-import DataSource from "../datasources/DataSource";
+import { DataSource } from "../../lib";
 import express from "express";
+import { AppContext } from "../types";
 
-class UserDataSource extends DataSource<User> {
+class UserDataSource extends DataSource<AppContext, User> {
   users: User[] = [
     {
       id: "1",
@@ -16,8 +17,6 @@ class UserDataSource extends DataSource<User> {
       id: user.id,
       email: user.email,
     });
-
-  deserialize = (obj: string): User => JSON.parse(obj) as User;
 
   keyPrefix = "user_";
 

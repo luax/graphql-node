@@ -2,9 +2,16 @@ import { createApolloServer, startServer } from "./server";
 import { config } from "dotenv";
 config();
 
-import { client } from "./postgres";
-client.initialize();
+import postgres from "./postgres";
+postgres.initialize();
 
-import graphql from "./graphql";
-const apolloServer = createApolloServer(graphql);
+import { context } from "./lib";
+import { typeDefs, resolvers, dataSources } from "./graph";
+
+const apolloServer = createApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources,
+  context,
+});
 startServer(apolloServer);

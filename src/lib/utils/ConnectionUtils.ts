@@ -1,7 +1,7 @@
-import { ConnectionInput, ConnectionArguments } from "./types";
-import { UserInputError } from "apollo-server";
+import { ConnectionInput, ConnectionArguments } from "../types";
+import { UserInputError } from "../errors";
 
-export class ConnectionUtils {
+export default class ConnectionUtils {
   // eslint-disable-next-line max-statements
   static async getArguments<T>(
     { first, last, before, after }: ConnectionInput,

@@ -1,14 +1,18 @@
 import { Book } from "./index";
-import { client, sql, QueryResultRowType } from "../../postgres";
 import DataLoader from "dataloader";
-import SQLDataSource from "../datasources/SQLDataSource";
-import { PaginationInput } from "../types";
+import {
+  SQLDataSource,
+  QueryResultRowType,
+  PaginationInput,
+  sql,
+} from "../../lib";
 import groupBy from "lodash/groupBy";
 import memoize from "lodash/memoize";
+import { AppContext } from "../types";
 
-class DataSource extends SQLDataSource<Book> {
+class DataSource extends SQLDataSource<AppContext, Book> {
   async getBooks(): Promise<Book[]> {
-    const columns = client.columns(["id", "title", "author_id"]);
+    const columns = sql.columns(["id", "title", "author_id"]);
     const books = await this.query(
       sql`SELECT ${columns} FROM books ORDER BY id ASC`,
     );
@@ -27,7 +31,16 @@ class DataSource extends SQLDataSource<Book> {
     return this.getIdsByPaginationMemoized(input);
   }
 
-  deserialize = (rows: readonly QueryResultRowType<string>[]): Book[] => {
+  serialize = (book: Book): string =>
+    JSON.stringify({
+      id: book.id,
+      title: book.title,
+      authorId: book.authorId,
+    });
+
+  deserializeQueryResult = (
+    rows: readonly QueryResultRowType<string>[],
+  ): Book[] => {
     return rows.map(row => ({
       id: row["id"].toString(),
       authorId: row["author_id"].toString(),
@@ -36,7 +49,7 @@ class DataSource extends SQLDataSource<Book> {
   };
 
   private getByIdLoader = new DataLoader(async (ids: readonly string[]) => {
-    const columns = client.columns(["id", "title", "author_id"]);
+    const columns = sql.columns(["id", "title", "author_id"]);
     const sqlArray = sql.array(ids as string[], "int4");
     const books = await this.query(
       sql`SELECT ${columns} FROM books WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
@@ -46,7 +59,7 @@ class DataSource extends SQLDataSource<Book> {
 
   private getByAuthorIdLoader = new DataLoader(
     async (ids: readonly string[]) => {
-      const columns = client.columns(["id", "title", "author_id"]);
+      const columns = sql.columns(["id", "title", "author_id"]);
       const sqlArray = sql.array(ids as string[], "int4");
       const books = await this.query(
         sql`SELECT ${columns} FROM books WHERE author_id = ANY (${sqlArray}) ORDER BY id ASC`,
@@ -60,7 +73,7 @@ class DataSource extends SQLDataSource<Book> {
     async input => {
       // TODO: Make more dynamic using slonik?
       const { primaryKey, limit, before, after, isFirst, isLast } = input;
-      const res = await client.query(
+      const res = await this.queryRaw(
         sql`
           SELECT
             id
@@ -99,7 +112,7 @@ class DataSource extends SQLDataSource<Book> {
 
   paginationHasNextPage = memoize(
     async (authorId, endCursor): Promise<boolean> => {
-      const hasNextRes = await client.query(
+      const hasNextRes = await this.queryRaw(
         sql`SELECT 1 FROM books WHERE author_id = ${authorId} AND id > ${endCursor} ORDER BY id ASC`,
       );
       return hasNextRes.length > 0;
@@ -112,7 +125,7 @@ class DataSource extends SQLDataSource<Book> {
 
   paginationHasPreviousPage = memoize(
     async (authorId, endCursor): Promise<boolean> => {
-      const hasPreviousRes = await client.query(
+      const hasPreviousRes = await this.queryRaw(
         sql`SELECT 1 FROM books WHERE author_id = ${authorId} AND id < ${endCursor} ORDER BY id ASC`,
       );
       return hasPreviousRes.length > 0;
@@ -125,7 +138,7 @@ class DataSource extends SQLDataSource<Book> {
 
   totalCountByAuthorId = memoize(
     async (authorId): Promise<number> => {
-      const totalCountRes = await client.query(
+      const totalCountRes = await this.queryRaw(
         sql`SELECT count(*) as count FROM books WHERE author_id = ${authorId}`,
       );
       const count = totalCountRes[0]["count"] as number;

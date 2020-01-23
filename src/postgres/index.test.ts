@@ -1,23 +1,23 @@
-import { client, sql } from "./index";
+import pg, { sql } from "./index";
 
-describe("client", () => {
+describe("postgres", () => {
   beforeAll(() => {
-    client.initialize();
+    pg.initialize();
   });
 
   afterAll(async () => {
-    await client.end();
+    await pg.end();
   });
 
   it("returns now", async () => {
-    const res = await client.query(sql`SELECT NOW() as now`);
+    const res = await pg.query(sql`SELECT NOW() as now`);
     expect(res).toBeTruthy(); // eslint-disable-line
   });
 
   it("returns an error", async () => {
     expect.assertions(1);
     try {
-      await client.query(sql`SELECT NOW as now`);
+      await pg.query(sql`SELECT NOW as now`);
     } catch (e) {
       // eslint-disable-next-line jest/no-try-expect
       expect(e.message).toMatchSnapshot();
@@ -27,10 +27,10 @@ describe("client", () => {
   it("handles sql injection", async () => {
     expect.assertions(2);
     const userInput = "; DROP TABLE authors; as foo";
-    const res = await client.query(sql`SELECT ${userInput} as test`);
+    const res = await pg.query(sql`SELECT ${userInput} as test`);
     expect(res[0].test).toStrictEqual(userInput);
     try {
-      await client.query(sql`SELECT ${sql.identifier([userInput])} as test`);
+      await pg.query(sql`SELECT ${sql.identifier([userInput])} as test`);
     } catch (e) {
       // eslint-disable-next-line jest/no-try-expect
       expect(e.message).toMatch(`column "${userInput}" does not exist`);

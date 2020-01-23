@@ -1,5 +1,5 @@
 import { IResolvers, IFieldResolver } from "apollo-server";
-import { User } from ".";
+// import { User } from ".";
 import { AppContext } from "../types";
 import {
   UpdateUserEmailInput,
@@ -17,7 +17,8 @@ interface UserResolver extends IResolvers {
 
 const resolvers: UserResolver = {
   Query: {
-    me: (_, _args, { user }, _info): User => user,
+    // me: (_, _args, { user }, _info): User => user,
+    me: (_, _args, _context, _info): void => {},
   },
   Mutation: {
     updateUserEmail: async (

@@ -1,6 +1,7 @@
-import graphql from "../graphql";
+import graph from "../graph";
+import { context } from "../lib";
 import { startServer, createApolloServer } from "../server";
-import { client } from "../postgres";
+import postgres from "../postgres";
 import axios from "axios";
 import { ServerInfo } from "../server/express";
 
@@ -8,13 +9,13 @@ describe("e2e", () => {
   let serverInfo: ServerInfo;
 
   beforeAll(async () => {
-    serverInfo = await startServer(createApolloServer(graphql));
-    client.initialize();
+    serverInfo = await startServer(createApolloServer({ ...graph, context }));
+    postgres.initialize();
   });
 
   afterAll(async () => {
     serverInfo.server.close();
-    await client.end();
+    await postgres.end();
   });
 
   it("gets a list of books", async () => {

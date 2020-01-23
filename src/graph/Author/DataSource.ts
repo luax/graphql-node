@@ -1,12 +1,18 @@
 import { Author } from "./index";
-import { client, sql, QueryResultRowType } from "../../postgres";
 import DataLoader from "dataloader";
-import SQLDataSource from "../datasources/SQLDataSource";
+import { SQLDataSource, QueryResultRowType, sql } from "../../lib";
+import { AppContext } from "../types";
 
-class DataSource extends SQLDataSource<Author> {
+class DataSource extends SQLDataSource<AppContext, Author> {
   async getById(authorId: string): Promise<Author | undefined> {
     return this.getByIdLoader.load(authorId);
   }
+
+  serialize = (author: Author): string =>
+    JSON.stringify({
+      id: author.id,
+      title: author.name,
+    });
 
   deserializeQueryResult = (
     rows: readonly QueryResultRowType<string>[],
@@ -18,7 +24,7 @@ class DataSource extends SQLDataSource<Author> {
   };
 
   private getByIdLoader = new DataLoader(async (ids: readonly string[]) => {
-    const columns = client.columns(["id", "name"]);
+    const columns = sql.columns(["id", "name"]);
     const sqlArray = sql.array(ids as string[], "int4");
     const authors = await this.query(
       sql`SELECT ${columns} FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,

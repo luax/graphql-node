@@ -3,10 +3,9 @@ import {
   DataSourceConfig,
 } from "apollo-datasource";
 import { KeyValueCache, PrefixingKeyValueCache } from "apollo-server-caching";
-import { AppContext } from "../types";
 
-abstract class DataSource<T> extends OriginalDataSource<AppContext> {
-  context!: AppContext;
+abstract class DataSource<TContext, T> extends OriginalDataSource<TContext> {
+  context!: TContext;
 
   cache!: KeyValueCache<string>;
 
@@ -14,9 +13,9 @@ abstract class DataSource<T> extends OriginalDataSource<AppContext> {
 
   abstract serialize(obj: T): string;
 
-  abstract deserialize(str: string): T;
+  deserialize = (obj: string): T => JSON.parse(obj) as T;
 
-  initialize(config: DataSourceConfig<AppContext>): void {
+  initialize(config: DataSourceConfig<TContext>): void {
     this.cache = new PrefixingKeyValueCache(this.cache, this.keyPrefix);
     this.context = config.context;
   }

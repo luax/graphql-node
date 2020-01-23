@@ -1,5 +1,5 @@
 import { AppContext } from "./types";
-import { AuthenticationError } from "./errors";
+import { AuthenticationError } from "../lib";
 import { User } from "./User";
 
 export default class Auth {
@@ -12,8 +12,10 @@ export default class Auth {
     return user;
   }
 
-  static authorized(user: User, model: Authorizable): boolean {
-    throw new AuthenticationError("you don't have access to this resource");
-    return true;
-  }
+  // static authorized(_user: User, _model: Authorizable): boolean {
+  //   throw new AuthenticationError(
+  //     "you don't have access to this resource",
+  //   );
+  //   return true;
+  // }
 }

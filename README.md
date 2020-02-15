@@ -52,3 +52,4 @@ $ bin/setup
 - [node postgres](http://node-postgres.com/)
 - [DataLoader](https://github.com/graphql/dataloader)
 - [slonik](https://github.com/gajus/slonik)
+- [TypeScript](https://www.typescriptlang.org/docs/home.html)

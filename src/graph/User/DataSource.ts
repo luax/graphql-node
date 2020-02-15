@@ -1,5 +1,5 @@
 import { User } from "./index";
-import { DataSource } from "../../lib";
+import { DataSource } from "../../lib/datasource";
 import express from "express";
 import { AppContext } from "../types";
 

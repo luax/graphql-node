@@ -1,16 +1,22 @@
 import { Book } from "./index";
 import DataLoader from "dataloader";
-import {
-  SQLDataSource,
-  QueryResultRowType,
-  PaginationInput,
-  sql,
-} from "../../lib";
+import { SQLDataSource } from "../../lib/datasource";
+import { sql, QueryResultRowType } from "../../postgres";
+import { PaginationInput } from "lib";
+import { selectedFields } from "../../lib/graphql";
+// import { enhancedDataLoader } from "../../lib/dataloader";
+
 import groupBy from "lodash/groupBy";
 import memoize from "lodash/memoize";
 import { AppContext } from "../types";
 
 class DataSource extends SQLDataSource<AppContext, Book> {
+  idColumns = new Set(["id", "author_id"]);
+
+  columns = new Set(["id", "title", "author_id"]);
+
+  selectedFields = selectedFields(this.idColumns, this.columns);
+
   async getBooks(): Promise<Book[]> {
     const columns = sql.columns(["id", "title", "author_id"]);
     const books = await this.query(

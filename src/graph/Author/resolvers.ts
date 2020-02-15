@@ -1,9 +1,9 @@
 import { IResolvers, IFieldResolver } from "apollo-server";
 import { Author } from ".";
 // import Auth from "../Auth";
-import { ConnectionInput, Connection } from "../../lib";
+import { ConnectionInput, Connection } from "lib";
+import { ConnectionUtils } from "../../lib/utils";
 import { AppContext, Book } from "../types";
-import { ConnectionUtils } from "../../lib";
 
 export interface AuthorResolver extends IResolvers {
   Query: {
@@ -21,8 +21,9 @@ export interface AuthorResolver extends IResolvers {
 
 const resolvers: AuthorResolver = {
   Query: {
-    author: async (_, { id }, context): Promise<Author | undefined> => {
-      const author = await context.dataSources.author.getById(id);
+    author: async (_, { id }, context, info): Promise<Author | undefined> => {
+      // const author = await context.dataSources.author.getById(id);
+      const author = await context.dataSources.author.getByIdTest(id, info);
       return author;
       // const user = await Auth.authenticate(context);
       // if (Auth.authorized(user, author)) {

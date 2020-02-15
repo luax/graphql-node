@@ -4,6 +4,7 @@ import postgres, {
   TaggedTemplateLiteralInvocationType,
 } from "../../postgres";
 import { Context } from "../types";
+import { GraphQLResolveInfo } from "graphql";
 
 export { QueryResultRowType };
 
@@ -11,11 +12,18 @@ abstract class SQLDataSource<TContext extends Context, T> extends DataSource<
   TContext,
   T
 > {
+  // TODO: Some caching
+  keyPrefix = "sql_";
+
+  abstract idColumns: Set<string>;
+
+  abstract columns: Set<string>;
+
+  abstract selectedFields: (info: GraphQLResolveInfo) => string[];
+
   abstract deserializeQueryResult(
     rows: readonly QueryResultRowType<string>[],
   ): T[];
-
-  keyPrefix = "sql_";
 
   async query(query: TaggedTemplateLiteralInvocationType): Promise<T[]> {
     const res = await this.queryRaw(query);

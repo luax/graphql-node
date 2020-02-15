@@ -1,5 +1,5 @@
 import { AppContext } from "./types";
-import { AuthenticationError } from "../lib";
+import { AuthenticationError } from "../lib/errors";
 import { User } from "./User";
 
 export default class Auth {

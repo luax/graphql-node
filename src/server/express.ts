@@ -40,7 +40,9 @@ export const startServer = async (
   });
   const address = httpServer.address() as net.AddressInfo;
   const url = getUrl(address);
-  console.log(`🚀  Server ready at ${url} (env "${process.env.NODE_ENV}")`);
-  console.log(`Health check at: ${url}.well-know./interface/server-health`);
+  if (process.env.NODE_ENV !== "test") {
+    console.log(`🚀  Server ready at ${url} (env "${process.env.NODE_ENV}")`);
+    console.log(`Health check at: ${url}.well-know./interface/server-health`);
+  }
   return { url, server: httpServer, apolloServer, app };
 };

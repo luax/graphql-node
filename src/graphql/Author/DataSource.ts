@@ -3,7 +3,7 @@ import DataLoader from "dataloader";
 import { enhancedDataLoader, SQLDataSource } from "src/lib/datasource";
 import { sql, QueryResultRowType } from "src/postgres";
 import { selectFields } from "src/lib/graphql";
-import { AppContext } from "src/graph/types";
+import { AppContext } from "src/graphql/types";
 import { GraphQLResolveInfo } from "graphql";
 import { ListSqlTokenType } from "slonik";
 

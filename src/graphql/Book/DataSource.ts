@@ -113,10 +113,7 @@ class DataSource extends SQLDataSource<AppContext, Book> {
       );
       return res.map(o => o["id"].toString());
     },
-    input =>
-      Object.keys(input)
-        .sort()
-        .join("_"),
+    input => Object.keys(input).sort().join("_"),
   );
 
   paginationHasNextPage = memoize(
@@ -126,10 +123,7 @@ class DataSource extends SQLDataSource<AppContext, Book> {
       );
       return hasNextRes.length > 0;
     },
-    input =>
-      Object.keys(input)
-        .sort()
-        .join("_"),
+    input => Object.keys(input).sort().join("_"),
   );
 
   paginationHasPreviousPage = memoize(
@@ -139,10 +133,7 @@ class DataSource extends SQLDataSource<AppContext, Book> {
       );
       return hasPreviousRes.length > 0;
     },
-    input =>
-      Object.keys(input)
-        .sort()
-        .join("_"),
+    input => Object.keys(input).sort().join("_"),
   );
 
   totalCountByAuthorId = memoize(

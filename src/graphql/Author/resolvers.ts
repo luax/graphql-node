@@ -3,7 +3,7 @@ import { Author } from ".";
 // import Auth from "../Auth";
 import { ConnectionInput, Connection } from "src/lib";
 import { ConnectionUtils } from "src/lib/utils";
-import { AppContext, Book } from "src/graph/types";
+import { AppContext, Book } from "src/graphql/types";
 
 export interface AuthorResolver extends IResolvers {
   Query: {

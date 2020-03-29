@@ -1,7 +1,7 @@
 import { User } from "./index";
 import { DataSource } from "src/lib/datasource";
 import express from "express";
-import { AppContext } from "src/graph/types";
+import { AppContext } from "src/graphql/types";
 
 class UserDataSource extends DataSource<AppContext, User> {
   users: User[] = [

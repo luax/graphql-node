@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const redis = require("redis");
 dotenv.config();
 
-const graph = require("../src/graph").default;
+const graph = require("../src/graphql").default;
 const postgres = require("../src/postgres");
 const db = postgres.default;
 db.initialize();
@@ -30,7 +30,6 @@ console.log(`
     { id: '1', name: 'Foo bar', ... }
     > author
     { id: '...', name: 'Foo bar', ... }
-    > const graph = require("./src/graph").default;
 `);
 
 const server = repl.start("> ");

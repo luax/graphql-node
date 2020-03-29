@@ -1,6 +1,6 @@
 import { IResolvers, IFieldResolver } from "apollo-server";
 // import { User } from ".";
-import { AppContext } from "src/graph/types";
+import { AppContext } from "src/graphql/types";
 import {
   UpdateUserEmailInput,
   UpdateUserEmailMutationResponse,

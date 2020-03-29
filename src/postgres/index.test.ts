@@ -1,8 +1,9 @@
 import pg, { sql } from "./index";
+import { databaseSettings } from "src/config";
 
 describe("postgres", () => {
   beforeAll(() => {
-    pg.initialize();
+    pg.initialize(databaseSettings);
   });
 
   afterAll(async () => {

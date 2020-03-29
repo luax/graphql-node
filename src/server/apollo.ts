@@ -8,13 +8,15 @@ export const createApolloServer = ({
   resolvers,
   context,
   dataSources,
+  tracing,
+  debug,
 }: ApolloServerExpressConfig): ApolloServer => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context,
-    tracing: process.env.NODE_ENV === "development",
-    debug: process.env.NODE_ENV === "development",
+    tracing,
+    debug,
     dataSources,
     // cache: new RedisCache({
     //   host: 'redis-server',

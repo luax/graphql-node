@@ -4,6 +4,9 @@ import {
   PrimitiveValueExpressionType,
   TaggedTemplateLiteralInvocationType,
   QueryResultRowType,
+  ConnectionContextType,
+  DatabasePoolConnectionType,
+  InterceptorType,
 } from "slonik";
 
 import sql from "./sql";
@@ -15,7 +18,14 @@ export {
   ListSqlTokenType,
 } from "slonik";
 
+export interface SettingsType {
+  databaseUrl: string;
+  name: string;
+  logSql?: boolean;
+}
+
 let init = false;
+let logQueries = false;
 let pool: DatabasePoolType;
 
 export default class Postgres {
@@ -26,7 +36,7 @@ export default class Postgres {
     const start = Date.now();
     const res = await pool.query(query, params);
     const duration = Date.now() - start;
-    if (process.env.NODE_ENV === "development") {
+    if (logQueries) {
       console.log({
         query: {
           sql: query.sql,
@@ -39,13 +49,30 @@ export default class Postgres {
     return res.rows;
   }
 
-  static initialize(): void {
+  static initialize(settings: SettingsType): void {
     if (init) throw new Error("called initialize twice");
     init = true;
-    pool = createPool(process.env.DATABASE_URL || "", {
-      maximumPoolSize: 20,
-      connectionTimeout: 2000,
-    });
+
+    const interceptors: InterceptorType[] = [
+      {
+        async afterPoolConnection(
+          _connectionContext: ConnectionContextType,
+          connection: DatabasePoolConnectionType,
+        ): Promise<null> {
+          await connection.query(sql`SET application_name = 'graphql-node'`);
+          await connection.query(sql`SET statement_timeout = '2s'`);
+          return null;
+        },
+      },
+    ];
+
+    const poolSettings = {
+      ...settings,
+      interceptors,
+    };
+
+    logQueries = Boolean(settings.logSql);
+    pool = createPool(settings.databaseUrl, poolSettings);
   }
 
   static async end(): Promise<void> {

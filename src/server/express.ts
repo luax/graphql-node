@@ -16,9 +16,6 @@ const setupExpress = (): express.Application => {
   app.use(compression());
   app.use(helmet());
   app.use(cors());
-  app.get("/", (_req, res) => {
-    res.send("Hello World!");
-  });
   return app;
 };
 
@@ -29,19 +26,25 @@ export type ServerInfo = {
   app: express.Application;
 };
 
-export const createExpressServer = async (
-  apolloServer: ApolloServer,
-): Promise<ServerInfo> => {
+export const createExpressServer = async ({
+  apolloServer,
+  port,
+  startupMessage,
+  environment,
+}: {
+  apolloServer: ApolloServer;
+  port: number;
+  startupMessage?: boolean;
+  environment?: string;
+}): Promise<ServerInfo> => {
   return new Promise(resolve => {
     const app = setupExpress();
     apolloServer.applyMiddleware({ app });
-    const httpServer = app.listen(process.env.PORT, (): void => {
+    const httpServer = app.listen(port, (): void => {
       const address = httpServer.address() as net.AddressInfo;
       const url = getUrl(address);
-      if (process.env.NODE_ENV !== "test") {
-        console.log(
-          `🚀  Server ready at ${url} (env "${process.env.NODE_ENV}")`,
-        );
+      if (startupMessage) {
+        console.log(`🚀  Server ready at ${url} (env "${environment}")`);
         console.log(
           `Health check at: ${url}.well-know./interface/server-health`,
         );

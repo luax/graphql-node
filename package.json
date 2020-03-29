@@ -143,7 +143,6 @@
       "no-shadow": "off",
       "no-console": "off",
       "no-magic-numbers": "off",
-      "no-process-env": "off",
       "no-warning-comments": "off",
       "no-undefined": "off",
       "no-inline-comments": "off",

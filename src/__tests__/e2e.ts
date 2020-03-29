@@ -1,6 +1,6 @@
 import graphql from "src/graphql";
 import { context } from "../lib";
-import { startServer, createApolloServer } from "src/server";
+import { createExpressServer, createApolloServer } from "src/server";
 import postgres from "src/postgres";
 import axios from "axios";
 import { ServerInfo } from "src/server/express";
@@ -9,7 +9,9 @@ describe("e2e", () => {
   let serverInfo: ServerInfo;
 
   beforeAll(async () => {
-    serverInfo = await startServer(createApolloServer({ ...graphql, context }));
+    serverInfo = await createExpressServer(
+      createApolloServer({ ...graphql, context }),
+    );
     postgres.initialize();
   });
 

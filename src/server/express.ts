@@ -29,20 +29,24 @@ export type ServerInfo = {
   app: express.Application;
 };
 
-export const startServer = async (
+export const createExpressServer = async (
   apolloServer: ApolloServer,
 ): Promise<ServerInfo> => {
-  const app = setupExpress();
-  apolloServer.applyMiddleware({ app });
-  // eslint-disable-next-line
-  const httpServer = await app.listen({
-    port: process.env.PORT,
+  return new Promise(resolve => {
+    const app = setupExpress();
+    apolloServer.applyMiddleware({ app });
+    const httpServer = app.listen(process.env.PORT, (): void => {
+      const address = httpServer.address() as net.AddressInfo;
+      const url = getUrl(address);
+      if (process.env.NODE_ENV !== "test") {
+        console.log(
+          `🚀  Server ready at ${url} (env "${process.env.NODE_ENV}")`,
+        );
+        console.log(
+          `Health check at: ${url}.well-know./interface/server-health`,
+        );
+      }
+      resolve({ url, server: httpServer, apolloServer, app });
+    });
   });
-  const address = httpServer.address() as net.AddressInfo;
-  const url = getUrl(address);
-  if (process.env.NODE_ENV !== "test") {
-    console.log(`🚀  Server ready at ${url} (env "${process.env.NODE_ENV}")`);
-    console.log(`Health check at: ${url}.well-know./interface/server-health`);
-  }
-  return { url, server: httpServer, apolloServer, app };
 };

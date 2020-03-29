@@ -1,9 +1,9 @@
 import { IResolvers, IFieldResolver } from "apollo-server";
 import { Author } from ".";
 // import Auth from "../Auth";
-import { ConnectionInput, Connection } from "lib";
-import { ConnectionUtils } from "../../lib/utils";
-import { AppContext, Book } from "../types";
+import { ConnectionInput, Connection } from "src/lib";
+import { ConnectionUtils } from "src/lib/utils";
+import { AppContext, Book } from "src/graph/types";
 
 export interface AuthorResolver extends IResolvers {
   Query: {

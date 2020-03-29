@@ -1,6 +1,6 @@
 import { IResolvers, IFieldResolver } from "apollo-server";
-import { AppContext } from "../types";
-import { Author } from "../Author";
+import { AppContext } from "src/graph/types";
+import { Author } from "src/graph/Author";
 import { Book } from ".";
 
 interface BookResolvers extends IResolvers {

@@ -1,10 +1,10 @@
 import { Book } from "./index";
 import DataLoader from "dataloader";
-import { SQLDataSource } from "../../lib/datasource";
-import { sql, QueryResultRowType } from "../../postgres";
-import { PaginationInput } from "lib";
-import { selectedFields } from "../../lib/graphql";
-// import { enhancedDataLoader } from "../../lib/dataloader";
+import { SQLDataSource } from "src/lib/datasource";
+import { sql, QueryResultRowType } from "src/postgres";
+import { PaginationInput } from "src/lib";
+import { selectFields } from "src/lib/graphql";
+// import { enhancedDataLoader } from "src/lib/dataloader";
 
 import groupBy from "lodash/groupBy";
 import memoize from "lodash/memoize";
@@ -15,7 +15,7 @@ class DataSource extends SQLDataSource<AppContext, Book> {
 
   columns = new Set(["id", "title", "author_id"]);
 
-  selectedFields = selectedFields(this.idColumns, this.columns);
+  selectFields = selectFields(this.idColumns, this.columns);
 
   async getBooks(): Promise<Book[]> {
     const columns = sql.columns(["id", "title", "author_id"]);
@@ -47,11 +47,14 @@ class DataSource extends SQLDataSource<AppContext, Book> {
   deserializeQueryResult = (
     rows: readonly QueryResultRowType<string>[],
   ): Book[] => {
-    return rows.map(row => ({
-      id: row["id"].toString(),
-      authorId: row["author_id"].toString(),
-      title: row["title"] as string,
-    }));
+    return rows.map(
+      row =>
+        new Book(
+          row["id"].toString(),
+          row["author_id"].toString(),
+          row["title"] as string,
+        ),
+    );
   };
 
   private getByIdLoader = new DataLoader(async (ids: readonly string[]) => {

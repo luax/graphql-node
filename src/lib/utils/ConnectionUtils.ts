@@ -1,5 +1,5 @@
-import { ConnectionInput, ConnectionArguments } from "../types";
-import { UserInputError } from "../errors";
+import { ConnectionInput, ConnectionArguments } from "src/lib/types";
+import { UserInputError } from "src/lib/errors";
 
 export default class ConnectionUtils {
   // eslint-disable-next-line max-statements

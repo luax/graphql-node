@@ -2,6 +2,7 @@
 
 const repl = require("repl");
 const dotenv = require("dotenv");
+const redis = require("redis");
 dotenv.config();
 
 const graph = require("../src/graph").default;
@@ -36,6 +37,7 @@ const server = repl.start("> ");
 server.context.graph = graph;
 server.context.db = db;
 server.context.sql = sql;
+server.context.redis = redis;
 
 const historyPath = process.env.NODE_REPL_HISTORY || ".node_repl_history";
 server.setupHistory(historyPath, (err, _server) => {

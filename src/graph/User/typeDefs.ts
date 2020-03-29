@@ -1,5 +1,5 @@
 import { gql } from "apollo-server";
-import { MutationResponse } from "../../lib";
+import { MutationResponse } from "src/lib";
 import { User } from ".";
 
 const typeDefs = gql`

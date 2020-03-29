@@ -1,22 +1,22 @@
 import DataLoader from "dataloader";
-import { sql } from "../../postgres";
+import { sql } from "src/postgres";
 import { ListSqlTokenType } from "slonik";
 
 interface IdAndColumns {
   id: string;
-  columns: string[];
+  selectedColumns: string[];
 }
 
 type BatchFunction<T> = (
   ids: string[],
-  columns: ListSqlTokenType,
+  selectedColumns: ListSqlTokenType,
 ) => Promise<Array<T | undefined>>;
 
 const idsAndColumns = <T>(fn: BatchFunction<T>) => async (
   keys: readonly IdAndColumns[],
 ): Promise<Array<T | undefined>> => {
-  const ids = keys.map(key => key.id.toString());
-  const columnMatrix = keys.map(key => key.columns);
+  const ids = keys.map(key => key.id);
+  const columnMatrix = keys.map(key => key.selectedColumns);
   const distinctColumns = [...new Set(columnMatrix.flat())];
   const columns = distinctColumns.sort();
   const sqlColumns = sql.columns(columns);
@@ -29,7 +29,8 @@ const enhancedDataLoader = <T>(
 ): DataLoader<IdAndColumns, T | undefined> => {
   const enhanced = idsAndColumns(batchFunction);
   return new DataLoader(enhanced, {
-    cacheKeyFn: (key: IdAndColumns): string => `${key.id}_${key.columns}`,
+    cacheKeyFn: (key: IdAndColumns): string =>
+      `${key.id}_${key.selectedColumns}`,
   });
 };
 

@@ -3,7 +3,7 @@ import {
   DataSourceConfig,
 } from "apollo-datasource";
 import { KeyValueCache, PrefixingKeyValueCache } from "apollo-server-caching";
-import { Context } from "../types";
+import { Context } from "src/lib/types";
 
 abstract class DataSource<
   TContext extends Context,

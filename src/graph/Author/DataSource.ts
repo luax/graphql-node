@@ -1,9 +1,9 @@
 import { Author } from "./index";
 import DataLoader from "dataloader";
-import { enhancedDataLoader, SQLDataSource } from "../../lib/datasource";
-import { sql, QueryResultRowType } from "../../postgres";
-import { selectedFields } from "../../lib/graphql";
-import { AppContext } from "../types";
+import { enhancedDataLoader, SQLDataSource } from "src/lib/datasource";
+import { sql, QueryResultRowType } from "src/postgres";
+import { selectFields } from "src/lib/graphql";
+import { AppContext } from "src/graph/types";
 import { GraphQLResolveInfo } from "graphql";
 import { ListSqlTokenType } from "slonik";
 
@@ -16,15 +16,18 @@ class DataSource extends SQLDataSource<AppContext, Author> {
     authorId: string,
     info: GraphQLResolveInfo,
   ): Promise<Author | undefined> {
-    const fields = this.selectedFields(info);
-    return this.getByIdEnhanchedLoader.load({ id: authorId, columns: fields });
+    const fields = this.selectFields(info);
+    return this.getByIdEnhanchedLoader.load({
+      id: authorId,
+      selectedColumns: fields,
+    });
   }
 
   idColumns = new Set(["id"]);
 
   columns = new Set(["id", "name"]);
 
-  selectedFields = selectedFields(this.idColumns, this.columns);
+  selectFields = selectFields(this.idColumns, this.columns);
 
   serialize = (author: Author): string =>
     JSON.stringify({
@@ -35,10 +38,9 @@ class DataSource extends SQLDataSource<AppContext, Author> {
   deserializeQueryResult = (
     rows: readonly QueryResultRowType<string>[],
   ): Author[] => {
-    return rows.map(row => ({
-      id: row["id"].toString(),
-      name: row["name"] as string,
-    }));
+    return rows.map(
+      row => new Author(row["id"].toString(), row["name"] as string),
+    );
   };
 
   private getByIdLoader = new DataLoader(async (ids: readonly string[]) => {
@@ -51,10 +53,10 @@ class DataSource extends SQLDataSource<AppContext, Author> {
   });
 
   private getByIdEnhanchedLoader = enhancedDataLoader(
-    async (ids: string[], columns: ListSqlTokenType) => {
+    async (ids: string[], selectedColumns: ListSqlTokenType) => {
       const sqlArray = sql.array(ids, "int4");
       const authors = await this.query(
-        sql`SELECT ${columns} FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
+        sql`SELECT ${selectedColumns} FROM authors WHERE id = ANY (${sqlArray}) ORDER BY id ASC`,
       );
       return ids.map(id => authors.find(p => p.id === id));
     },

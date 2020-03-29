@@ -1,7 +1,7 @@
 export { User } from "./User";
 export { Book } from "./Book";
 export { Author } from "./Author";
-import { Context } from "../lib";
+import { Context } from "src/lib";
 import Auth from "./Auth";
 import UserDataSource from "./User/DataSource";
 import BookDataSource from "./Book/DataSource";
@@ -17,3 +17,8 @@ export type DataSources = {
   book: BookDataSource;
   user: UserDataSource;
 };
+
+export interface DBModel {
+  ids: Set<string>;
+  columns: Set<string>;
+}

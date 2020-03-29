@@ -1,6 +1,6 @@
 import { Context } from "./types";
 import express from "express";
-import postgres from "../postgres";
+import postgres from "src/postgres";
 
 type input = {
   req: express.Request;

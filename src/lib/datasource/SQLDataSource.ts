@@ -2,16 +2,16 @@ import DataSource from "./DataSource";
 import postgres, {
   QueryResultRowType,
   TaggedTemplateLiteralInvocationType,
-} from "../../postgres";
-import { Context } from "../types";
+} from "src/postgres";
+import { Context, DBModel } from "src/lib/types";
 import { GraphQLResolveInfo } from "graphql";
 
 export { QueryResultRowType };
 
-abstract class SQLDataSource<TContext extends Context, T> extends DataSource<
-  TContext,
-  T
-> {
+abstract class SQLDataSource<
+  TContext extends Context,
+  T extends DBModel
+> extends DataSource<TContext, T> {
   // TODO: Some caching
   keyPrefix = "sql_";
 
@@ -19,7 +19,7 @@ abstract class SQLDataSource<TContext extends Context, T> extends DataSource<
 
   abstract columns: Set<string>;
 
-  abstract selectedFields: (info: GraphQLResolveInfo) => string[];
+  abstract selectFields: (info: GraphQLResolveInfo) => string[];
 
   abstract deserializeQueryResult(
     rows: readonly QueryResultRowType<string>[],
@@ -30,7 +30,7 @@ abstract class SQLDataSource<TContext extends Context, T> extends DataSource<
     return this.deserializeQueryResult(res);
   }
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line class-methods-use-this
   async queryRaw(
     query: TaggedTemplateLiteralInvocationType,
   ): Promise<readonly QueryResultRowType<string>[]> {

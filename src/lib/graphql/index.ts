@@ -1,7 +1,7 @@
 import graphqlFields from "graphql-fields";
 import { GraphQLResolveInfo } from "graphql";
 
-const selectedFields = (
+const selectFields = (
   includedFields: Set<string>,
   selectableFields: Set<string>,
 ): ((info: GraphQLResolveInfo) => string[]) => {
@@ -11,10 +11,10 @@ const selectedFields = (
       return allFields;
     }
     const fields = Object.keys(graphqlFields(info));
-    const selectedColumns = fields.filter(field => selectableFields.has(field));
-    const columns = [...includedFields, ...selectedColumns].sort();
-    return columns;
+    const selectedFields = fields.filter(field => selectableFields.has(field));
+    const sortedFields = [...includedFields, ...selectedFields].sort();
+    return sortedFields;
   };
 };
 
-export { selectedFields };
+export { selectFields };

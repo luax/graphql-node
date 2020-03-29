@@ -1,13 +1,19 @@
 import { DocumentNode } from "graphql";
 import { IResolvers } from "apollo-server";
 import express from "express";
-import postgres from "../postgres";
+import postgres from "src/postgres";
 
 export interface Context {
   req: express.Request;
   db: postgres;
 }
 
+export interface DBModel {
+  ids: Set<string>;
+  columns: Set<string>;
+}
+
+// GraphQL types below
 export interface Model {
   typeDefs: DocumentNode;
   resolvers: IResolvers;

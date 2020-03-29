@@ -1,6 +1,6 @@
 import { IResolvers, IFieldResolver } from "apollo-server";
 // import { User } from ".";
-import { AppContext } from "../types";
+import { AppContext } from "src/graph/types";
 import {
   UpdateUserEmailInput,
   UpdateUserEmailMutationResponse,
@@ -18,6 +18,7 @@ interface UserResolver extends IResolvers {
 const resolvers: UserResolver = {
   Query: {
     // me: (_, _args, { user }, _info): User => user,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     me: (_, _args, _context, _info): void => {},
   },
   Mutation: {
